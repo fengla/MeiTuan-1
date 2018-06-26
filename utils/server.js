@@ -41,8 +41,7 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
-function isEmptyObject(obj)
-{
+function isEmptyObject(obj){
 	if ((typeof obj === "object" && !(obj instanceof Array)) || ((obj instanceof Array) && obj.length <= 0 )){  
 		var isEmpty = true;  
 		for (var prop in obj){  

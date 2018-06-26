@@ -1,18 +1,59 @@
 <view class="container">
 	<view class="header {{scrollDown?'hidden':''}}">
-		<image class="logo" src="{{shop.logo}}"/>
-		<view class="name ellipsis">{{shop.restaurant_name}}</view>
-		<view class="welcome ellipsis">公告：欢迎光临{{shop.restaurant_name}}！</view>
-		<view class="follow" bindtap="follow">{{followed?'已收藏':'收藏'}}</view>
+		<image class="logo" src="{{root + app.icon}}"/>
+		<view class="name ellipsis">{{app.appName}}</view>
+		<view class="welcome ellipsis">点击“关注”使用小程序</view>
+    <!-- 这里点击关注后就算是加入了个人感兴趣的app了，点击之后应该弹窗出来二维码，用户可以识别二维码进行使用 -->
+		<view class="follow" bindtap="follow">{{followed?'已关注':'关注'}}</view>
 		<view class="line"></view>
 	</view>
-	<view class="content-container">
-		<scroll-view class="classify-container" scroll-y="true">
+
+<!-- todo;现在不能滑动，导致下面的detail都无法展示了。。。这个需要怎么处理好？？？ -->
+  <!-- 这里宽度，高度都需要重新设计一下。。。18:9的比例来设置 -->
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500" style="height: 60%;weight:30%;back-ground-color:white">
+  <!-- 上面这个宽度和背景色似乎没生效 -->
+			<block wx:for="{{banners}}" wx:key="id">
+				<swiper-item>
+          <!-- todo:showMax是点击展示大图 -->
+					<image bindtap="showMax" data-id="{{index}}" src="{{root + item.img}}" id="{{item.id}}"/>
+				</swiper-item>
+			</block>
+		</swiper>
+
+	 <view class="content-container">
+
+    
+
+		 <!-- <scroll-view class="classify-container" scroll-y="true">
 			<view class="classify {{classifySeleted==classify.id?'active':''}}" wx:for="{{shop.menu}}" wx:for-item="classify" wx:key="id" data-id="{{classify.id}}" bindtap="tapClassify">
 				<view class="name">{{classify.package}}</view>
 			</view>
-		</scroll-view>
-		<scroll-view class="goods-container" scroll-y="true" scroll-into-view="{{classifyViewed}}" bindscroll="onGoodsScroll">
+		</scroll-view>  -->
+
+
+    <!-- 现在是解决了展示内容的问题，但是样式太丑了，而且换行也没有展示出来？怎么办？ 搜索微信小程序怎么展示换行？-->
+       <view class="detail-container"><text>{{detail}}</text></view>   
+    
+     <!-- <view class="detail-container"><text>{{testdata}}</text></view>  -->
+    <!-- <view class="detail-container"><text>测试第一段\n测试第二段</text></view> -->
+
+
+    <!-- 这里最好再做一个截屏的展示。。小程序样式图;麻烦的是这些样式图的维护。。。 -->
+
+
+    <!-- 弹出层:二维码 -->
+    <!-- iphone7的时候不能居中，这个还需要处理一下 -->
+    <view class="modal-box" hidden="{{flag}}" bindtap="hide">
+      <view class="modal-body">
+        <!-- <view class="modal-content"> -->
+          <image src="{{root + app.qrCode}}" class="qrcode"></image>
+          <button class="knowBtn" bindtap="hide">隐藏二维码</button>
+        <!-- </view> -->
+      </view>
+    </view>
+		
+    
+     <!-- <scroll-view class="goods-container" scroll-y="true" scroll-into-view="{{classifyViewed}}" bindscroll="onGoodsScroll">
 			<view wx:for="{{shop.menu}}" wx:for-item="classify" wx:key="id" id="{{classify.id}}">
 				<view class="title">{{classify.package}}</view>
 				<view class="goods" wx:for="{{classify.menu}}" wx:for-item="menu" wx:key="name">
@@ -25,9 +66,11 @@
 					</view>
 				</view>
 			</view>
-		</scroll-view>
-	</view>
-	<view class="cart-detail" hidden="{{!showCartDetail||!cart.count}}">
+		</scroll-view>  -->
+	</view> 
+
+  <!-- 下面这里展示具体需要展示的内容，包括介绍以及后期需要加上的评论等信息 -->
+	<!-- <view class="cart-detail" hidden="{{!showCartDetail||!cart.count}}">
 		<view class="mask" bindtap="hideCartDetail"></view>
 		<view class="list">
 			<view class="item" wx:for="{{localList}}" wx:key="*this">
@@ -40,8 +83,8 @@
 				</view>
 			</view>
 		</view>
-	</view>
-	<view class="cart">
+	</view> -->
+	<!-- <view class="cart">
 		<view class="data" bindtap="showCartDetail">
 			<view class="icon">
 				<image src="/imgs/shop/cart.png"></image>
@@ -50,8 +93,9 @@
 			<view class="total">￥{{cart.total}}</view>
 		</view>
 		<form bindsubmit="submit" report-submit="true">
-			<!--<view formType="submit" class="submit">去结算</view>-->
+			//<view formType="submit" class="submit">去结算</view>
 			<button class="yellow {{cart.count?'':'disabled'}}" formType="submit" disabled="{{!cart.count}}">去结算</button>
 		</form>
-	</view>
+	</view> -->
+  
 </view>

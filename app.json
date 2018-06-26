@@ -4,14 +4,15 @@
 		"page/index/search",
 		"page/shop/shop",
 		"page/mine/mine",
-		"page/order/order"
+		"page/order/order",
+    "page/ctpage/ctpage"
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#feb70f",
 		"navigationBarTextStyle": "white",
 		"backgroundColor": "#efefef",
 		"backgroundTextStyle": "dark",
-		"navigationBarTitleText": "外卖订餐"
+		"navigationBarTitleText": "D1小程序市场"
 	},
 	"tabBar": {
 		"color": "#878787",
@@ -25,6 +26,12 @@
 				"selectedIconPath": "imgs/tabBar/home_1.png",
 				"text": "首页"
 			},
+      {
+        "pagePath": "page/index/index",
+        "iconPath": "imgs/tabBar/home_2.png",
+        "selectedIconPath": "imgs/tabBar/home_1.png",
+        "text": "内涵段子"
+      },
 			{
 				"pagePath": "page/mine/mine",
 				"iconPath": "imgs/tabBar/mine_2.png",

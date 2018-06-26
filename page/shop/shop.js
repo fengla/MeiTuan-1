@@ -2,54 +2,71 @@ var app = getApp();
 var server = require('../../utils/server.js');
 Page({
 	data: {
-		cart: {
-			count: 0,
-			total: 0
-		},
-		cartList : [],
-		localList: [],
-		showCartDetail: false,
-		defaultImg: 'http://global.zuzuche.com/assets/images/common/zzc-logo.png',
+    flag : true,
+    root : app.globalData.root,
+    detail:"-----多快好省，只为品质生活-----\n1. 新人大礼：新人专享188元大礼包 \n2. 专享特权：每日多款商品享受手机专享价 \n3. 正品行货：100％正品行货、全国联保 \n4. 闪电到货：211限时达、次日达、极速达、夜间配",
+    banners: [
+      {
+        id: 3,
+        img: 'http://si1.go2yd.com/get-image/0OBbeGP0i24',
+        url: 'http://www.baidu.com',
+        name: '百亿巨惠任你抢'
+      },
+      {
+        id: 1,
+        img: 'http://si1.go2yd.com/get-image/0OBbg2XMEi0',
+        url: '/page/shop/shop?id=1',
+        name: '告别午高峰'
+      },
+      {
+        id: 2,
+        img: 'http://si1.go2yd.com/get-image/0OBbjI2U62y',
+        url: '/page/shop/shop?id=1',
+        name: '金牌好店'
+      }
+    ],
+		app : [] 
+    //加载页面的时候搜索出来app的具体信息。。。（主页不应该搜索出整个AppDTO而是应该封装一个最少字段的对象返回出来，而且应该在sql阶段就缩小返回的数据，不查那么多数据出来）
 	},
 	onLoad: function (options) {
-		var shopId = options.id;
-		var shop = server.selectedShopDetail(shopId) // throw Exception
-		this.setData({
-			shopId: shopId,
-			shop: shop
-		})
-		var res = wx.getStorageSync('orderList');
-		if(res)
-		{
-			this.setData({
-				cart: {
-					count: res.count,
-					total: res.total
-				}
-			});
-			if(!server.isEmptyObject(res.cartList))
-			{
-				this.setData({
-					cartList:res.cartList,
-					localList: server.filterEmptyObject(res.cartList)
-				})
-			}
-		}
-		if(typeof this.data.cartList[this.data.shopId] == 'undefined' || server.isEmptyObject(this.data.cartList[this.data.shopId]))
-		{
-			var cartList = this.data.cartList;
-			cartList[this.data.shopId] = [];
-			this.setData({
-				cartList: cartList
-			})
-		}
-		console.log(this.data.localList, this.data.cartList)
+		var appId = options.id;//因为index.xml中的是id而不是appId,这里需要与那里的名字一致
+    var self =this
+    //debug.wdf
+    console.log(appId)
+    //ajax this.setData
+		// this.setData({
+		// 	shopId: shopId,
+		// 	shop: shop
+		// })
+    wx.request({
+      url: 'http://localhost:8080/appDetail?appId='+appId, success(res) {//localhost:8080这个地址如何全局只维护一个？todo
+        console.log(res.data)
+        var detailTmp = res.data.detail
+        console.log("detailTmp:" + detailTmp)
+        self.setData({
+          app: res.data,
+          detail: detailTmp
+        })
+      }
+    });
+		
 	},
 	onShow: function () {
 		this.setData({
 			classifySeleted: 1
 		});
 	},
+  onScroll: function (e) {
+    if (e.detail.scrollTop > 100 && !this.data.scrollDown) {
+      this.setData({
+        scrollDown: true
+      });
+    } else if (e.detail.scrollTop < 100 && this.data.scrollDown) {
+      this.setData({
+        scrollDown: false
+      });
+    }
+  },
 	checkOrderSame: function(name){
 		var list = this.data.cartList[this.data.shopId];
 		for(var index in list){
@@ -144,10 +161,16 @@ Page({
 		})
 	},
 	follow: function () {
+    //this.setData({ flag: false })
 		this.setData({
-			followed: !this.data.followed
+			followed: !this.data.followed,
+      flag: false
 		});
 	},
+  //隐藏弹出的二维码
+  hide: function () {
+    this.setData({ flag: true })
+  },
 	onGoodsScroll: function (e) {
 		if (e.detail.scrollTop > 10 && !this.data.scrollDown) {
 			this.setData({
