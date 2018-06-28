@@ -1,3 +1,5 @@
+var WxParse = require('../../wxParse/wxParse.js');
+
 var app = getApp();
 var server = require('../../utils/server.js');
 Page({
@@ -45,7 +47,7 @@ Page({
         console.log("detailTmp:" + detailTmp)
         self.setData({
           app: res.data,
-          detail: detailTmp
+          detail: WxParse.wxParse('detail', 'html', detailTmp, self, 5) //这样子对吗？
         })
       }
     });

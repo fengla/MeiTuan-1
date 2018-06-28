@@ -1,3 +1,5 @@
+<import src="../../wxParse/wxParse.wxml" />
+
 <view class="container">
 	<view class="header {{scrollDown?'hidden':''}}">
 		<image class="logo" src="{{root + app.icon}}"/>
@@ -10,7 +12,9 @@
 
 <!-- todo;现在不能滑动，导致下面的detail都无法展示了。。。这个需要怎么处理好？？？ -->
   <!-- 这里宽度，高度都需要重新设计一下。。。18:9的比例来设置 -->
-  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500" style="height: 60%;weight:30%;back-ground-color:white">
+  <scroll-view scroll-y="true" bindscroll="onScroll">
+  <!-- swiper：style="height: 60%;weight:30%;background-color:white" -->
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500">
   <!-- 上面这个宽度和背景色似乎没生效 -->
 			<block wx:for="{{banners}}" wx:key="id">
 				<swiper-item>
@@ -18,9 +22,9 @@
 					<image bindtap="showMax" data-id="{{index}}" src="{{root + item.img}}" id="{{item.id}}"/>
 				</swiper-item>
 			</block>
-		</swiper>
+	</swiper>
 
-	 <view class="content-container">
+	 <!-- <view class="content-container"> -->
 
     
 
@@ -32,7 +36,14 @@
 
 
     <!-- 现在是解决了展示内容的问题，但是样式太丑了，而且换行也没有展示出来？怎么办？ 搜索微信小程序怎么展示换行？-->
-       <view class="detail-container"><text>{{detail}}</text></view>   
+       <!-- version1 -->
+       <!-- <view class="detail-container"><text>{{detail}}</text></view>    -->
+       <!-- version1 end -->
+        <!-- version2 -->
+      <view class="wxParse">
+        <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
+      </view>
+      <!-- version2 end -->
     
      <!-- <view class="detail-container"><text>{{testdata}}</text></view>  -->
     <!-- <view class="detail-container"><text>测试第一段\n测试第二段</text></view> -->
@@ -67,8 +78,8 @@
 				</view>
 			</view>
 		</scroll-view>  -->
-	</view> 
-
+	<!-- </view>  -->
+</scroll-view>
   <!-- 下面这里展示具体需要展示的内容，包括介绍以及后期需要加上的评论等信息 -->
 	<!-- <view class="cart-detail" hidden="{{!showCartDetail||!cart.count}}">
 		<view class="mask" bindtap="hideCartDetail"></view>

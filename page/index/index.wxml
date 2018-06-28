@@ -21,6 +21,7 @@
 		</swiper>
 
 		<swiper class="section icons" indicator-dots="true" autoplay="" interval="" duration="500">
+    <!-- wx:for-item="list"怎么理解？ -->
 			<swiper-item wx:for="{{icons}}" wx:for-item="list" wx:key="id">
 				<view class="icon" wx:for="{{list}}" wx:for-item="icon" wx:key="id" bindtap="toCt" id="{{icon.id}}" data-ctName="{{icon.name}}">
 					<image src="{{icon.img}}" id="{{icon.id}}"/>
