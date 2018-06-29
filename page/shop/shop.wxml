@@ -14,12 +14,13 @@
   <!-- 这里宽度，高度都需要重新设计一下。。。18:9的比例来设置 -->
   <scroll-view scroll-y="true" bindscroll="onScroll">
   <!-- swiper：style="height: 60%;weight:30%;background-color:white" -->
-  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500">
+  <text>[小程序截图]</text>
+  <swiper class="preview" indicator-dots="true" autoplay="true" interval="3000" duration="500">
   <!-- 上面这个宽度和背景色似乎没生效 -->
 			<block wx:for="{{banners}}" wx:key="id">
 				<swiper-item>
           <!-- todo:showMax是点击展示大图 -->
-					<image bindtap="showMax" data-id="{{index}}" src="{{root + item.img}}" id="{{item.id}}"/>
+					<image bindtap="showMax" data-id="{{index}}" src="http://si1.go2yd.com/get-image/0OJyU5Jspea" id="{{item.id}}"/>
 				</swiper-item>
 			</block>
 	</swiper>
@@ -40,6 +41,8 @@
        <!-- <view class="detail-container"><text>{{detail}}</text></view>    -->
        <!-- version1 end -->
         <!-- version2 -->
+        <!-- todo: 这里需要设计一下样式 -->
+        <text class="">[小程序介绍]</text>
       <view class="wxParse">
         <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
       </view>

@@ -35,6 +35,7 @@ Page({
     var self =this
     //debug.wdf
     console.log(appId)
+    console.log("banners:" + this.data.banners)
     //ajax this.setData
 		// this.setData({
 		// 	shopId: shopId,
