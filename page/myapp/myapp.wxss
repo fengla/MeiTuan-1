@@ -4,16 +4,6 @@ page {
 .container {
 	height: 100%;
 }
-
-.feed-container {
-  margin-left: 30rpx;
-  margin-right: 30rpx;
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  border-bottom: 3rpx solid #efefef;
-  background-color:#ffffff;
-}
-
 scroll-view {
 	height: 100%;
 }
@@ -201,7 +191,8 @@ scroll-view {
 	float: left;
 	width: 200rpx;
 	height: 100%;
-  border-radius:25rpx;
+  border-radius: 25px;
+  /*border-radius:50rpx;*/
 	background-size: cover;
 
 }

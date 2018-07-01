@@ -5,7 +5,8 @@
 		"page/shop/shop",
 		"page/mine/mine",
 		"page/order/order",
-    "page/ctpage/ctpage"
+    "page/ctpage/ctpage",
+    "page/feed/feed"
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#feb70f",
@@ -27,7 +28,7 @@
 				"text": "首页"
 			},
       {
-        "pagePath": "page/index/index",
+        "pagePath": "page/feed/feed",
         "iconPath": "imgs/tabBar/home_2.png",
         "selectedIconPath": "imgs/tabBar/home_1.png",
         "text": "内涵段子"

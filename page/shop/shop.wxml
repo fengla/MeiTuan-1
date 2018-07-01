@@ -60,8 +60,8 @@
     <view class="modal-box" hidden="{{flag}}" bindtap="hide">
       <view class="modal-body">
         <!-- <view class="modal-content"> -->
-          <image src="{{root + app.qrCode}}" class="qrcode"></image>
-          <button class="knowBtn" bindtap="hide">隐藏二维码</button>
+          <image src="{{root + app.qrCode}}" class="qrcode" style="width: 100%"></image>
+          <button class="knowBtn" bindtap="hide">隐藏小程序码</button>
         <!-- </view> -->
       </view>
     </view>

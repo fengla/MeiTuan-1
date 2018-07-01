@@ -3,49 +3,34 @@ var server = require('../../utils/server');
 Page({
 	data: {
     ctName : "",
-    wxapps : "",//todo：这里处理不赋值，在onLoad()请求的时候以ajax请求服务端然后对这个值赋值，最后展示在wxml页面中，待验证这样是否可行
+    feeds : [
+      {
+        content:"反正也看不到脸，随便脱，不丢人！不过我想知道，到底是男还是女的",
+        img:"http//i1.go2yd.com/image.php?url=0JP5JxZvA3"
+      },
+      {
+        content: "反正也看不到脸，随便脱，不丢人！不过我想知道，到底是男还是女的",
+        img: "http//i1.go2yd.com/image.php?url=0JP5JxZvA3"
+      },
+      {
+        content: "反正也看不到脸，随便脱，不丢人！不过我想知道，到底是男还是女的",
+        img: "http//i1.go2yd.com/image.php?url=0JP5JxZvA3"
+      }]
 	},
 	onLoad: function (options) {
-    console.log("[debug]-ctpage-options:" + options.ctName)
-    var ctIdPara = options.ctId
-    var ctNamePara = options.ctName
+    //todo: options是从param参数中获取数据吗？？？
+    // console.log("[debug]-ctpage-options:" + options.ctName)
+    // var ctIdPara = options.ctId
+    // var ctNamePara = options.ctName
 
-    console.log("[debug]-ctpage-ctId:"+ctIdPara);
-    console.log("[debug]-ctpage-ctName:" + ctNamePara);
 
-		var self = this;
-
-    self.setData({
-      ctName: ctNamePara
-    })
-		// wx.getLocation({
-		// 	type: 'gcj02',
-		// 	success: function (res) {
-		// 		var latitude = res.latitude;
-		// 		var longitude = res.longitude;
-		// 		server.getJSON('dwq/WxAppApi/location.php', {
-		// 			latitude: latitude,
-		// 			longitude: longitude
-		// 		}, function (res) {
-		// 			console.log(res)
-		// 			if (res.data.status != -1) {
-		// 				self.setData({
-		// 					address: res.data.result.address_component.street_number
-		// 				});
-		// 			} else {
-		// 				self.setData({
-		// 					address: '定位失败'
-		// 				});
-		// 			}
-		// 		});
-		// 	}
-		// });
-
+    //请求feed流数据
+    //初始请求15条数据，cur=0这个应该是倒叙的index=0,其实也就是系统中最近插入的数据
     wx.request({
-      url: 'http://localhost:8080/showHotApps?ct=0', success(res) {
+      url: 'http://localhost:8080/getFeeds?cur=0&limit=15', success(res) {
         console.log(res.data)
         self.setData({
-          apps: res.data
+          feeds: res.data
         })
       }
     });
