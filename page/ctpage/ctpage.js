@@ -40,9 +40,9 @@ Page({
 		// 		});
 		// 	}
 		// });
-
+    var reqUrl = app.globalData.root +"/showHotApps?ct=0"
     wx.request({
-      url: 'http://localhost:8080/showHotApps?ct=0', success(res) {
+      url: reqUrl, success(res) {
         console.log(res.data)
         self.setData({
           apps: res.data

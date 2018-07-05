@@ -35,9 +35,9 @@ Page({
 		// 		});
 		// 	}
 		// });
-
+    var reqUrlHotApps = app.globalData.root + "/showHotApps"
     wx.request({
-      url: 'http://localhost:8080/showHotApps?ct=99', success(res) {
+      url: reqUrlHotApps, success(res) {
         console.log("[debug]hotApps:" + res.data)
         self.setData({
           apps: res.data
@@ -46,8 +46,9 @@ Page({
     });
 
     //banners 重新请求出来???看看是否可以得到？？？这样可以吗？？？
+    var reqUrlBanners = app.globalData.root + "/getBanners"
     wx.request({
-      url: 'http://localhost:8080/getBanners', success(res) {
+      url: reqUrlBanners, success(res) {
         console.log("[debug]banners:" + res.data)
         self.setData({
           banners: res.data
@@ -56,8 +57,9 @@ Page({
     });
 
     //icons
+    var reqUrlCts = app.globalData.root + "/getAllCts"
     wx.request({
-      url: 'http://localhost:8080/getAllCts', success(res) {
+      url: reqUrlCts, success(res) {
         console.log("[debug]Icons:" + res.data)
         self.setData({
           icons: res.data

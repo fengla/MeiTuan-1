@@ -41,8 +41,9 @@ Page({
 		// 	shopId: shopId,
 		// 	shop: shop
 		// })
+    var reqUrl = app.globalData.root + "/appDetail?appId=" + appId
     wx.request({
-      url: 'http://localhost:8080/appDetail?appId='+appId, success(res) {//localhost:8080这个地址如何全局只维护一个？todo
+      url: reqUrl, success(res) {
         console.log(res.data)
         var detailTmp = res.data.detail
         console.log("detailTmp:" + detailTmp)

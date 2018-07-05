@@ -25,16 +25,6 @@ Page({
     })
     this.getData();
 
-    //请求feed流数据
-    //初始请求15条数据，cur=0这个应该是倒叙的index=0,其实也就是系统中最近插入的数据
-    // wx.request({
-    //   url: 'http://localhost:8080/getAllNews?cur=0&limit=15', success(res) {
-    //     console.log(res.data)
-    //     self.setData({
-    //       feeds: res.data
-    //     })
-    //   }
-    // });
 	},
 
   onReady() {
@@ -142,19 +132,11 @@ Page({
   // 获取数据  pageIndex：页码参数
   getData: function () {
 
-    // wx.request({
-    //   url: 'http://localhost:8080/getAllNews?cur=0&limit=15', success(res) {
-    //     console.log(res.data)
-    //     self.setData({
-    //       feeds: res.data
-    //     })
-    //   }
-    // });
-
     var self = this;
     var pageIndex = self.data.currentPage;
+    var reqUrl = app.globalData.root + "/getNewsByPage" //js中单引号双引号扩起来的字符串是一样的吗？是js都认可这2种样式
     wx.request({
-      url: 'http://localhost:8080/getNewsByPage',
+      url: reqUrl,
       data: {
         curPage: pageIndex
       },
