@@ -11,7 +11,12 @@
 		</view> -->
 	</view>
 
-	<scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll">
+  <!-- <view class="header" hidden="{{hideHeader}}">
+    <view>下拉刷新中……</view>
+    <view>{{refreshTime}}</view>
+  </view> -->
+
+	<scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll"  bindscrolltoupper="refresh" bindscrolltolower="loadMore">
 		<!-- <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500">
 			<block wx:for="{{banners}}" wx:key="id">
 				<swiper-item>
@@ -46,16 +51,27 @@
 				
 				<view class='feed-container' style="vertical-align: middle">	
 					<!-- 这个图片怎么居中????????? -->
-          <image src="https://wx4.sinaimg.cn/mw690/5eef6257gy1fspfnrtz7ng205706ox6p.gif" style="width: 100%"/>
+          <!-- todo: 怎么实现条件加载卡片？ -->
+          <view wx:if="{{item.img.length==0?'false':'true'}}">
+            <image src="{{item.img}}" style="width: 100%"/>
+          </view>
+          
             
-					<view class='shop-detail'>
+					<!-- todo: 判断如果item.content不为空才渲染这个标签 -->
+          <view class='shop-detail' style="margin-top:30rpx;margin-bottom:30rpx;font-size:25rpx">
 								<view class='start-price'>{{item.content}}</view>
 					</view>												
 				</view>
+        <!-- todo：这里需要设计点赞，点踩，收藏的功能...这个功能需要配合用户系统一起用了。。 -->
         
 			</view>
 				
 		<!-- </view>	 -->
 	</scroll-view>
+
+  <!-- <view class="bottom" hidden="{{hideBottom}}">
+    <view>{{loadMoreData}}</view>
+    <view>{{refreshTime}}</view>
+  </view> -->
 
 </view>
