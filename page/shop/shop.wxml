@@ -1,6 +1,7 @@
 <import src="../../wxParse/wxParse.wxml" />
 
 <view class="container">
+<scroll-view scroll-y="true" bindscroll="onScroll">
 	<view class="header {{scrollDown?'hidden':''}}">
 		<image class="logo" src="{{root + app.icon}}"/>
 		<view class="name ellipsis">{{app.appName}}</view>
@@ -12,18 +13,19 @@
 
 <!-- todo;现在不能滑动，导致下面的detail都无法展示了。。。这个需要怎么处理好？？？ -->
   <!-- 这里宽度，高度都需要重新设计一下。。。18:9的比例来设置 -->
-  <scroll-view scroll-y="true" bindscroll="onScroll">
+  
   <!-- swiper：style="height: 60%;weight:30%;background-color:white" -->
-  <text>[小程序截图]</text>
+  
+  <!-- <text>[小程序截图]</text>
   <swiper class="preview" indicator-dots="true" autoplay="true" interval="3000" duration="500">
-  <!-- 上面这个宽度和背景色似乎没生效 -->
+   上面这个宽度和背景色似乎没生效 
 			<block wx:for="{{banners}}" wx:key="id">
 				<swiper-item>
-          <!-- todo:showMax是点击展示大图 -->
+           todo:showMax是点击展示大图 
 					<image bindtap="showMax" data-id="{{index}}" src="http://si1.go2yd.com/get-image/0OJyU5Jspea" id="{{item.id}}"/>
 				</swiper-item>
 			</block>
-	</swiper>
+	</swiper> -->
 
 	 <!-- <view class="content-container"> -->
 
@@ -42,10 +44,41 @@
        <!-- version1 end -->
         <!-- version2 -->
         <!-- todo: 这里需要设计一下样式 -->
-        <text class="">[小程序介绍]</text>
+
+
+        <!-- <text class="">[小程序介绍]</text>
       <view class="wxParse">
         <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
+      </view> -->
+
+  <!-- version3 -->
+  <view class='grounp'>
+    <view class='title'>[小程序截图]</view>
+    <view class='describe'>
+      <swiper class="preview" indicator-dots="true" autoplay="true" interval="3000" duration="500">
+  <!-- 上面这个宽度和背景色似乎没生效 -->
+			  <block wx:for="{{app.previews}}" wx:key="id">
+				  <swiper-item>
+          <!-- todo:showMax是点击展示大图 -->
+          <!-- 这样子确实是100%展示了，但是如果原始截图不是这个比例，这样在我自己框定的控件中展示不协调，还是得明白怎么做到固定比例展示 -->
+					  <image style="height:100%;width:100%" bindtap="showMax" data-id="{{index}}" src="{{root + item}}" id="{{item.id}}"/>
+				  </swiper-item>
+			  </block>
+	    </swiper>
+    </view>
+  </view>
+
+  <view class='grounp'>
+    <view class='title'>[小程序介绍]</view>
+    <view class='describe'>
+      <view class="wxParse"  style="font-size:32rpx">
+        <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
       </view>
+    </view>
+  </view>
+<!-- version3 -->
+
+
       <!-- version2 end -->
     
      <!-- <view class="detail-container"><text>{{testdata}}</text></view>  -->

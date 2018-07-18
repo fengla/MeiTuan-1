@@ -12,6 +12,7 @@ page {
   margin-bottom: 20rpx;
   border-bottom: 3rpx solid #efefef;
   background-color:#ffffff;
+  border: 1px solid #ccc;
 }
 
 scroll-view {
@@ -221,7 +222,7 @@ scroll-view {
 }
 .start-price{
 	float:left;
-	margin-right: 50rpx;
+	margin-right: 25rpx;
 }
 .send-price{
 	float: left;
@@ -241,4 +242,38 @@ scroll-view {
 page{
 	font-family: "Microsoft Yahei, Arial, Helvetica, sans-serif";
 	font-size: 12px;
+}
+
+
+/*顶，踩，评论*/
+.article__count{
+  float: right;
+  display: flex;
+  align-items: center;
+  color:#333;
+  font-size: 20rpx;
+  font-weight: 500;
+}
+
+.manage__tag{
+    
+    border: 1px solid #ccc;
+    
+    color:#ccc;
+    font-size: 24rpx;
+    display: inline-block;
+  
+    width:32%
+}
+
+.manage__tag_mid{
+    
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    
+    color:#ccc;
+    font-size: 24rpx;
+    display: inline-block;
+  
+    width:32%
 }

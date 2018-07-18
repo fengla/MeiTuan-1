@@ -52,15 +52,30 @@
 				<view class='feed-container' style="vertical-align: middle">	
 					<!-- 这个图片怎么居中????????? -->
           <!-- todo: 怎么实现条件加载卡片？ -->
-          <view wx:if="{{item.img.length==0?'false':'true'}}">
+          <view wx:if="{{item.containsImg}}">
             <image src="{{item.img}}" style="width: 100%"/>
           </view>
           
             
 					<!-- todo: 判断如果item.content不为空才渲染这个标签 -->
-          <view class='shop-detail' style="margin-top:30rpx;margin-bottom:30rpx;font-size:25rpx">
+          <view class='shop-detail' style="margin-bottom:30rpx;padding-top:30rpx;font-size:32rpx">
 								<view class='start-price'>{{item.content}}</view>
-					</view>												
+					</view>	
+
+          <view class="" style="text-align: middle">
+                  <view class="manage__tag">
+                    <icon class="fa fa-thumbs-o-up" style="font-size:50rpx"/>
+                    <text style="margin-left:25rpx">76</text>
+                  </view>
+                  <view class="manage__tag_mid">
+                    <icon class="fa fa-thumbs-o-down" style="font-size:50rpx"/>
+                    <text style="margin-left:25rpx">8</text>
+                  </view>
+                  <view class="manage__tag">
+                    <icon class="fa fa-comments-o" style="font-size:50rpx"/>
+                    <text style="margin-left:25rpx">6</text>
+                  </view>
+          </view>											
 				</view>
         <!-- todo：这里需要设计点赞，点踩，收藏的功能...这个功能需要配合用户系统一起用了。。 -->
         

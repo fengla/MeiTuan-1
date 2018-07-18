@@ -32,8 +32,8 @@ App({
 		hasLogin: false,
 		cartList: [],
 		userInfo: [],
-    root: "http://localhost:8080",
-    wxapps: [{ appId: 1, appName: "ofo小黄车", icon: "http://ofo.oss-cn-qingdao.aliyuncs.com/ofoweb/official/logo_black.svg", qrCode: "http://www.yidianzixun.com", detail: "一点资讯是一款兴趣阅读类的资讯app,为你提供有趣有品有料的新闻资讯，海量资讯，每天读一点！", updateDate: "1529583137925" }, { appId: 2, appName: "天天快报", icon: "http://mat1.gtimg.com/www/images/pckuaibao/kbpclogo.png", qrCode: "http://www.yidianzixun.com", detail: "一点资讯是一款兴趣阅读类的资讯app,为你提供有趣有品有料的新闻资讯，海量资讯，每天读一点！", updateDate: "1529583137925" }]
+    root: "http://localhost:8080",//"http://40e5c53b.ngrok.io",//
+    wxapps: []
 
 	},
 	rd_session: null,

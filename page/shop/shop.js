@@ -42,6 +42,7 @@ Page({
 		// 	shop: shop
 		// })
     var reqUrl = app.globalData.root + "/appDetail?appId=" + appId
+    console.log("reqUrl:" + reqUrl)
     wx.request({
       url: reqUrl, success(res) {
         console.log(res.data)

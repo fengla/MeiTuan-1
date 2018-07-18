@@ -3,7 +3,7 @@ var server = require('../../utils/server');
 Page({
 	data: {
     ctName : "",
-    wxapps : "",//todo：这里处理不赋值，在onLoad()请求的时候以ajax请求服务端然后对这个值赋值，最后展示在wxml页面中，待验证这样是否可行
+    apps : []
 	},
 	onLoad: function (options) {
     console.log("[debug]-ctpage-options:" + options.ctName)
@@ -40,15 +40,19 @@ Page({
 		// 		});
 		// 	}
 		// });
-    var reqUrl = app.globalData.root +"/showHotApps?ct=0"
+    var reqUrl = app.globalData.root + "/getAppsByCT?ct=" + ctIdPara + "&&curPage=0"
     wx.request({
       url: reqUrl, success(res) {
-        console.log(res.data)
+        console.log("debug-before:" + res.data.content)
         self.setData({
-          apps: res.data
+          apps: res.data.content
         })
+        console.log("self.apps:" + self.apps)
+        console.log("self.data.apps:" + self.data.apps)
       }
     });
+    //request是异步的，所以下面这一行日志不是在上面这些请求赋值打日志之后的行为
+    console.log("debug-apps:" + this.data.apps)
 	},
 
   onReady() {
