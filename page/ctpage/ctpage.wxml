@@ -40,14 +40,14 @@
 				<view class="filter {{filterId==3?'active':''}}" data-id="3" bindtap="tapFilter">最新发布<text class="v">↓</text>
 				</view> -->
 			</view>
-			<view class="shop" wx:for="{{apps}}" wx:key="appId">
-				<navigator url="/page/shop/shop?id={{item.appId}}" style="width: 100%; height: 100%">
+			<view class="shop" wx:for="{{apps}}" wx:key="id">
+				<navigator url="/page/shop/shop?id={{item.appid}}" style="width: 100%; height: 100%">
 					<view class='shop-container'>	
-						<view class='shop-logo'><image src="{{item.icon}}" style="height: 100%"/></view>
+						<view class='shop-logo'><image src="{{root + item.icon}}" style="height: 100%;border-radius: 15px"/></view>
 						<view class='shop-detail'>
 							  <view class='shop-name'>{{item.appName}}</view>  
 							  <view class='shop-data'>
-								<view class='start-price'>这里是编辑整理的简要介绍</view>
+								<view class='start-price'>{{item.summary}}</view>
 							</view>												
 						</view>
 					</view>

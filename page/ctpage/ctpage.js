@@ -3,6 +3,7 @@ var server = require('../../utils/server');
 Page({
 	data: {
     ctName : "",
+    root: app.globalData.root,
     apps : []
 	},
 	onLoad: function (options) {
