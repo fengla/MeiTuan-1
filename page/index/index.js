@@ -9,7 +9,12 @@ Page({
 		shops: app.globalData.shops,
     root: app.globalData.root,
     wxapps: app.globalData.wxapps,
-    apps:[]
+    apps:[],
+    refreshTime: '', // 刷新的时间 
+    allPages: '',    // 总页数
+    currentPage: 0,  // 当前页数（从0开始index）
+    loadMoreData: '加载更多……',
+    empty: "" 
 	},
 	onLoad: function () {
 		var self = this;
@@ -35,15 +40,18 @@ Page({
 		// 		});
 		// 	}
 		// });
-    var reqUrlHotApps = app.globalData.root + "/showHotApps"
-    wx.request({
-      url: reqUrlHotApps, success(res) {
-        console.log("[debug]hotApps:" + res.data)
-        self.setData({
-          apps: res.data
-        })
-      }
-    });
+
+    // var reqUrlHotApps = app.globalData.root + "/showHotApps"
+    // wx.request({
+    //   url: reqUrlHotApps, success(res) {
+    //     console.log("[debug]hotApps:" + res.data)
+    //     self.setData({
+    //       apps: res.data
+    //     })
+    //   }
+    // });
+    //替换为：请求第一页热门app数据。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+    this.getData()
 
     //banners 重新请求出来???看看是否可以得到？？？这样可以吗？？？
     var reqUrlBanners = app.globalData.root + "/getBanners"
@@ -148,6 +156,92 @@ Page({
     wx.navigateTo({//保留当前页面，跳转到应用内的某个页面
       url: '/page/shop/shop?id=' + bannerId,//url里面就写上你要跳到的地址
     })
-	}
+	},
+
+
+  /** 上下拉 */
+  loadMore: function () {
+    var self = this;
+    // 当前页是最后一页
+    if (self.data.currentPage == self.data.allPages) {
+      self.setData({
+        loadMoreData: '已经到顶'
+      })
+      return;
+    }
+    setTimeout(function () {
+      console.log('上拉加载更多');
+      var tempCurrentPage = self.data.currentPage;
+      tempCurrentPage = tempCurrentPage + 1;
+      self.setData({
+        currentPage: tempCurrentPage,
+        hideBottom: false
+      })
+      self.getData();
+    }, 300);
+  },
+  // 下拉刷新
+  refresh: function (e) {
+    var self = this;
+    setTimeout(function () {
+      console.log('下拉刷新');
+      var date = new Date();
+      self.setData({
+        currentPage: 0,
+        refreshTime: date.toLocaleTimeString(),
+        hideHeader: false
+      })
+      self.getData();
+    }, 300);
+  },
+  // 获取数据  pageIndex：页码参数
+  getData: function () {
+    // var reqUrlHotApps = app.globalData.root + "/getLatestApps"
+    // wx.request({
+    //   url: reqUrlHotApps, success(res) {
+    //     console.log("[debug]hotApps:" + res.data)
+    //     self.setData({
+    //       apps: res.data
+    //     })
+    //   }
+    // });
+
+    var self = this;
+    var pageIndex = self.data.currentPage;
+    var reqUrl = app.globalData.root + "/getLatestApps" //js中单引号双引号扩起来的字符串是一样的吗？是js都认可这2种样式
+    wx.request({
+      url: reqUrl,
+      data: {
+        curPage: pageIndex
+      },
+      success: function (res) {
+        var dataModel = res.data;
+        //console.log("resposne-debug:" + dataModel.content)
+        // if (dataModel.showapi_res_code == 0) {
+        //之前实际代码写在这里，可以实现基于返回码确定是否请求成功  
+        // }
+        if (pageIndex == 0) { // 下拉刷新
+          self.setData({
+            allPages: dataModel.totalPages,
+            apps: dataModel.content,
+            hideHeader: true
+          })
+        } else { // 加载更多
+          console.log('加载更多');
+          var tempArray = self.data.apps;
+          tempArray = tempArray.concat(dataModel.content);
+          self.setData({
+            allPages: dataModel.totalPages,
+            apps: tempArray,
+            
+          })
+        }
+      },
+      fail: function () {
+
+      }
+    })
+  },
+  /** 上下拉 */
 });
 

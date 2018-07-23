@@ -62,18 +62,18 @@
 								<view class='start-price'>{{item.content}}</view>
 					</view>	
 
-          <view class="" style="text-align: middle">
+          <view class="userui" style="margin-top:5rpx;margin-bottom:15rpx;width:100%">
                   <view class="manage__tag">
                     <icon class="fa fa-thumbs-o-up" style="font-size:50rpx"/>
-                    <text style="margin-left:25rpx">76</text>
+                    <text class="counter">76</text>
                   </view>
                   <view class="manage__tag_mid">
                     <icon class="fa fa-thumbs-o-down" style="font-size:50rpx"/>
-                    <text style="margin-left:25rpx">8</text>
+                    <text class="counter">8</text>
                   </view>
-                  <view class="manage__tag">
+                  <view class="manage__tag_right">
                     <icon class="fa fa-comments-o" style="font-size:50rpx"/>
-                    <text style="margin-left:25rpx">6</text>
+                    <text class="counter">6</text>
                   </view>
           </view>											
 				</view>

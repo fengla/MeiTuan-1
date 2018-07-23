@@ -207,9 +207,12 @@ scroll-view {
 
 }
 .shop-detail{
+  border-bottom: 1px solid #ccc;
 	height:100%;
 	overflow: hidden;
 	padding-left: 30rpx;
+  padding-bottom: 25rpx;
+  margin-bottom: 0;
 }
 .shop-name{
 	color:#313131;
@@ -257,23 +260,55 @@ page{
 
 .manage__tag{
     
-    border: 1px solid #ccc;
+    /* border-left: 1px solid #ccc; */
     
     color:#ccc;
     font-size: 24rpx;
-    display: inline-block;
+    /* display: inline-block;  */
+    flex: 1;
+
+    text-align: center;
   
-    width:32%
+    width:33.3%
 }
 
 .manage__tag_mid{
     
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    /* border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc; */
+    border-left: 1px solid #ccc;
     
     color:#ccc;
     font-size: 24rpx;
-    display: inline-block;
+    /* display: inline-block;  */
+    flex: 1;
+
+    text-align: center;
   
-    width:32%
+    width:33.3%
+}
+
+.manage__tag_right{
+    
+    /*border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;*/
+    border-left: 1px solid #ccc;
+    
+    color:#ccc;
+    font-size: 24rpx;
+    /* display: inline-block;  */
+    flex: 1;
+
+    text-align: center;
+  
+    width:33.3%
+}
+
+.userui{
+  display: flex;
+  flex-direction: row;
+}
+
+.counter{
+  margin-left:25rpx;
 }

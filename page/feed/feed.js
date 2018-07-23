@@ -122,7 +122,7 @@ Page({
       console.log('下拉刷新');
       var date = new Date();
       self.setData({
-        currentPage: 1,
+        currentPage: 0,
         refreshTime: date.toLocaleTimeString(),
         hideHeader: false
       })

@@ -4,10 +4,10 @@
 		<view class="nickname">{{userInfo.nickName}}</view>
 	</view>
 	<view class="section">
-		<navigator url="/page/order/order"><view class="line judgement">我的订单</view></navigator>
-		<view class="line judgement">我的好友</view>
-		<view class="line judgement">我的收藏</view>
-		<view class="line judgement">我的地址</view>
+		<navigator url="/page/order/order"><view class="line judgement">菜单0</view></navigator>
+		<view class="line judgement">菜单1</view>
+		<view class="line judgement">菜单2</view>
+		<view class="line judgement">菜单3</view>
 	</view>
 	<view class="section">
 		<view class="line judgement">我的钱包<text class="tl">余额：￥0</text></view>

@@ -13,7 +13,7 @@
 		"navigationBarTextStyle": "white",
 		"backgroundColor": "#efefef",
 		"backgroundTextStyle": "dark",
-		"navigationBarTitleText": "D1小程序市场"
+		"navigationBarTitleText": "yomi小助手"
 	},
 	"tabBar": {
 		"color": "#878787",
@@ -29,8 +29,8 @@
 			},
       {
         "pagePath": "page/feed/feed",
-        "iconPath": "imgs/tabBar/home_2.png",
-        "selectedIconPath": "imgs/tabBar/home_1.png",
+        "iconPath": "imgs/tabBar/feed_2_new.png",
+        "selectedIconPath": "imgs/tabBar/feed_1_new.png",
         "text": "内涵段子"
       },
 			{
