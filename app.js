@@ -3,17 +3,17 @@ App({
 	onLaunch: function () {
 		console.log('App Launch')
 		var self = this;
-		var rd_session = wx.getStorageSync('rd_session');
-    console.log("app.js.onLaunch.rd_session:"+rd_session)
+		var token = wx.getStorageSync('token');
+    console.log("app.js.onLaunch.token:"+token)
     //getStorageSync: 从本地缓存中获取指定key的内容，后续把一些需要一直维护的内容都写在这里或者golballobalData(视情况而定)
-		if (!rd_session) {//xcx中是这样判空的？
+		if (!token) {//xcx中是这样判空的？
 			self.login();
 		} else {
-			wx.checkSession({//wx.checkSession是什么操作？
+			wx.checkSession({//验证session_key是否有效
 				success: function () {
 					// 登录态未过期
 					console.log('登录态未过期')
-					self.rd_session = rd_session;
+					self.token = token;
 					self.getUserInfo();
 				},
 				fail: function () {
@@ -31,40 +31,54 @@ App({
 		console.log('App Hide')
 	},
 	globalData: {
-		hasLogin: false,
 		cartList: [],
 		userInfo: [],
     root: "http://localhost:8080",//"http://40e5c53b.ngrok.io",//
-    wxapps: []
-
+    wxapps: [],
+    token: null,
+    userid: null
 	},
-	rd_session: null,
+	token: null,
 	login: function() {
 		var self = this;
-		// wx.login({
-		// 	success: function (res) {
-		// 		console.log('wx.login', res)
-    //     server.getJSON('dwq/WxAppApi/setUserSessionKey.php', {code: res.code}, function (res) {
-		// 			self.rd_session = res.data.rd_session;
-		// 			self.globalData.hasLogin = true;
-		// 			wx.setStorageSync('rd_session', self.rd_session);
-		// 			self.getUserInfo();
-    //     });//todo:请求服务端，获取rd_session， globalData.hasLogin（设置登录态）
-    //     //然后这个怎么获取到的rd_session， globalData.hasLogin在后续逻辑中是怎么用的呢？
-    //     //从微信服务器获取到的session_ID，openid,unionid有什么作用？
-		// 	}
-		// });
-//todo: 这个rd_session应该就是我的设计中的token的意思，我这里先把这个变量名字变成token吧
-    console.log("app.js.login_again")
-    wx.login({
+		wx.login({
 			success: function (res) {
 				console.log('wx.login', res)
 
-        self.getUserInfo();
-        //然后这个怎么获取到的rd_session， globalData.hasLogin在后续逻辑中是怎么用的呢？
-        //从微信服务器获取到的session_ID，openid,unionid有什么作用？
+                var reqUrlLogin = self.globalData.root + "/login?jscode=" + res.code
+                wx.request({
+                  url: reqUrlLogin,
+                  success(res) {
+                    var resp = res.data
+                    console.log("resp:" + resp)
+                    console.log("[debug]firstLogin:" + resp.firstLogin + ", token:" + resp.token)
+                    //这里是不是应该用那个setStorage啥的？
+                    self.globalData.token = resp.token;
+                    self.globalData.userid = resp.userid;
+                    //version1: 仅仅对于第一次使用本程序的用户才请求用户画像
+                    //基于firstLogin判断是否跳转login授权页面，进行授权获取用户getUserInfo()
+                    // if(res.firstLogin){
+                    //   wx.navigateTo({
+                    //     url: '/page/login/login',
+                    //     // success: function(res) {},
+                    //     // fail: function(res) {},
+                    //     // complete: function(res) {},
+                    //   })
+                    // }
+                    
+                    //version2:
+                    //先请求getUserInfo,查看返回码，如果提示授权失败才进入授权页面（login.wxml），否则（即获取成功）应该可以直接拿到用户信息了
+                    //不管是不是firstLogin都应该重新获取用户userInfo,并用新的数据来更新数据库中存储的用户画像。。。
+                    self.getUserInfo();
+
+                    //获取之后需要把这些数据再传给服务端，进行存储
+                  }
+                });
+                //请求服务端, 返回结果需要包含：token, 是否为第一次登录
+
 			}
 		});
+
 	},
 	getUserInfo: function() {
 		var self = this;
@@ -73,7 +87,7 @@ App({
 		// 		self.globalData.userInfo = res.userInfo;
     //     //todo: start
 		// 		server.getJSON('dwq/WxAppApi/checkSignature.php', {
-		// 			rd_session: self.rd_session,
+		// 			token: self.token,
 		// 			signature: res.signature,
 		// 			raw_data: res.rawData
 		// 		}, function (res) {
@@ -86,9 +100,44 @@ App({
 		// });
     wx.getUserInfo({
       success: function (res) {
+        console.log("[success]wx.getUserInfo.res:" + res.userInfo.nickName)
+
+        var nickName = res.userInfo.nickName
+        var avatar = res.userInfo.avatarUrl
+        var gender = res.userInfo.gender
+		var location = res.userInfo.country + "_" + res.userInfo.province + "_" + res.userInfo.city
+    console.log("[debug-getUserInfo]nickName"+nickName+", avatar:"+avatar+", gender:"+gender+", location:"+location)
+        
         self.globalData.userInfo = res.userInfo;
         
-        console.log(self.globalData.userInfo)
+        //console.log(self.globalData.userInfo)
+
+        //todo:这里以post方式把以上数据传给服务端
+          var reqUrl = self.globalData.root + "/updateUserInfo4wx"
+          wx.request({//这是get请求还是post请求呢？
+              url: reqUrl,
+              method: 'POST',
+              data: {
+                userid: self.globalData.userid,
+                nickName: nickName,
+                avatar: avatar,
+                gender: gender,
+                location: location,
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              success: function(res) {
+                  console.log(res)
+
+              },
+              fail: function(res){
+                console.log(res)
+              }
+          })
+      },
+      fail:function(res){
+        console.log("[fail]wx.getUserInfo.res:" + res)
       }
     });
 	}

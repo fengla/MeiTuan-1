@@ -4,14 +4,20 @@
 		<view class="nickname">{{userInfo.nickName}}</view>
 	</view>
 	<view class="section">
-		<navigator url="/page/order/order"><view class="line judgement">消息通知</view></navigator>
-		<view class="line judgement">关注的app</view>
+		<!-- <navigator url="/page/order/order">
+      <view class="line judgement">消息通知</view>
+      </navigator> -->
+		<!-- 点击进入myapp页面
+    技术点：调转 -->
+    <view class="line judgement">关注的app</view>
+
 		<view class="line judgement">收藏的段子</view>
+
     <view class="line judgement">分享新的app</view>
 	</view>
-	<view class="section">
+	<!-- <view class="section">
 		<view class="line judgement">我的钱包<text class="tl">余额：￥0</text></view>
-	</view>
+	</view> -->
 	<view class="section">
 		<view class="line judgement">帮助与反馈</view>
 	</view>
