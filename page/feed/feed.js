@@ -167,5 +167,25 @@ Page({
       }
     })
   },
+
+  followNews: function (e) {
+    //首先需要设置该icon图标颜色为红色，并将counter计数增加1
+    //再请求服务端将这个点赞关系存储到服务端
+    var userid = e.target.dataset.userid
+    //e.currentTarget与e.target有什么区别?
+    // var newsid = e.currentTarget.newsid
+    var newsid = e.target.dataset.newsid
+    console.log("followNews userid:"+userid+",newsid:"+newsid)
+  },
+
+  unFollowNews: function (e) {
+    //首先需要设置该icon图标颜色为红色，并将counter计数增加1
+    //再请求服务端将这个点赞关系存储到服务端
+    var userid = e.target.dataset.userid
+    //e.currentTarget与e.target有什么区别?
+    // var newsid = e.currentTarget.newsid
+    var newsid = e.target.dataset.newsid
+    console.log("followNews userid:" + userid + ",newsid:" + newsid)
+  },
 });
 

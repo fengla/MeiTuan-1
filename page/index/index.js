@@ -17,6 +17,7 @@ Page({
     empty: "" 
 	},
 	onLoad: function () {
+    console.log("index.userinfo:" + app.globalData.userInfo.nickName)
 		var self = this;
 		// wx.getLocation({
 		// 	type: 'gcj02',
