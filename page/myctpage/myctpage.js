@@ -2,17 +2,23 @@ var app = getApp();
 var server = require('../../utils/server');
 Page({
 	data: {
-		filterId: 1,
-		address: '广州天河大厦',
-    banners: [],
-    icons: [],
-		shops: app.globalData.shops,
+    ctName : "",
     root: app.globalData.root,
-    wxapps: app.globalData.wxapps,
-    apps:[]
+    apps : []
 	},
-	onLoad: function () {
+	onLoad: function (options) {
+    console.log("[debug]-ctpage-options:" + options.ctName)
+    var ctIdPara = options.ctId
+    var ctNamePara = options.ctName
+
+    console.log("[debug]-ctpage-ctId:"+ctIdPara);
+    console.log("[debug]-ctpage-ctName:" + ctNamePara);
+
 		var self = this;
+
+    self.setData({
+      ctName: ctNamePara
+    })
 		// wx.getLocation({
 		// 	type: 'gcj02',
 		// 	success: function (res) {
@@ -35,37 +41,19 @@ Page({
 		// 		});
 		// 	}
 		// });
-    var reqUrlHotApps = app.globalData.root + "/showHotApps"
+    var reqUrl = app.globalData.root + "/getAppsByCT?ct=" + ctIdPara + "&&curPage=0"
     wx.request({
-      url: reqUrlHotApps, success(res) {
-        console.log("[debug]hotApps:" + res.data)
+      url: reqUrl, success(res) {
+        console.log("debug-before:" + res.data.content)
         self.setData({
-          apps: res.data
+          apps: res.data.content
         })
+        console.log("self.apps:" + self.apps)
+        console.log("self.data.apps:" + self.data.apps)
       }
     });
-
-    //banners 重新请求出来???看看是否可以得到？？？这样可以吗？？？
-    var reqUrlBanners = app.globalData.root + "/getBanners"
-    wx.request({
-      url: reqUrlBanners, success(res) {
-        console.log("[debug]banners:" + res.data)
-        self.setData({
-          banners: res.data
-        })
-      }
-    });
-
-    //icons
-    var reqUrlCts = app.globalData.root + "/getAllCts"
-    wx.request({
-      url: reqUrlCts, success(res) {
-        console.log("[debug]Icons:" + res.data)
-        self.setData({
-          icons: res.data
-        })
-      }
-    });
+    //request是异步的，所以下面这一行日志不是在上面这些请求赋值打日志之后的行为
+    console.log("debug-apps:" + this.data.apps)
 	},
 
   onReady() {
@@ -89,20 +77,14 @@ Page({
 	tapSearch: function () {
 		wx.navigateTo({url: 'search'});
 	},
-	toMyCt: function (e) {
-		//todo:这里可以从缓存中读取uid，然后请求这个用户在这个分类（参数中获取）下的关注app数据
-    var uid = 123123123;
-
-    console.log("[debug]ctId")
-    console.log(e.currentTarget.dataset)
-    var ctId = e.currentTarget.id
-    var ctName = e.currentTarget.dataset.ctname
-    console.log("ctId:"+ctId)
-    console.log("ctName:"+ctName)
-    
-    wx.navigateTo({//保留当前页面，跳转到应用内的某个页面
-      url: '/page/myctpage/myctpage?ctId=' + ctId +'&&ctName=' + ctName,//url里面就写上你要跳到的地址   todo:这个ctName参数应该是不需要的，可以考虑删除
-    })
+	toNearby: function () {
+		var self = this;
+		self.setData({
+			scrollIntoView: 'nearby'
+		});
+		self.setData({
+			scrollIntoView: null
+		});
 	},
 	tapFilter: function (e) {
 		switch (e.target.dataset.id) {
@@ -135,13 +117,9 @@ Page({
 		// 	showCancel: false
 		// });
 
-    var bannerId = e.currentTarget.id
-    //console.log("[debug]bannerId")
-    //console.log(bannerId)
     //新需求：跳转到页面。学习：小程序跳转
-    //单独设计一个Banner落地页。。。然后这个落地页面就是解析富文本的页面，直接解析富文本进行展现即可
     wx.navigateTo({//保留当前页面，跳转到应用内的某个页面
-      url: '/page/shop/shop?id=' + bannerId,//url里面就写上你要跳到的地址
+      url: '/page/shop/shop?id=1',//url里面就写上你要跳到的地址
     })
 	}
 });
