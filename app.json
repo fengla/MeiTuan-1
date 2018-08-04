@@ -6,7 +6,9 @@
 		"page/mine/mine",
 		"page/order/order",
     "page/ctpage/ctpage",
-    "page/feed/feed"
+    "page/feed/feed",
+    "page/myapp/myapp",
+    "page/myctpage/myctpage"
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#feb70f",

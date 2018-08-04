@@ -19,6 +19,20 @@ Page({
 			userInfo: app.globalData.userInfo
 		});
 		console.log(this.data.userInfo);
-	}
+	},
+
+  toMyApp: function (e) {
+
+    console.log("[debug]ctId")
+    console.log(e.currentTarget.dataset)
+    var userid = e.currentTarget.dataset.userid
+    
+    console.log("userid:" + userid)
+    
+
+    wx.navigateTo({//保留当前页面，跳转到应用内的某个页面
+      url: '/page/myapp/myapp?userid=' + userid,//url里面就写上你要跳到的地址
+    })
+  }
 });
 

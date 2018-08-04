@@ -10,7 +10,7 @@
 		<!-- 点击进入myapp页面
     技术点：调转 -->
     <!-- 关注的app后面可以追加显示数量 -->
-    <view class="line judgement">关注的app (62)</view>
+    <view class="line judgement" bindtap="toMyApp" data-userid="2">关注的app (62)</view>
 
     <!-- 点击进入我收藏的信息流？这个业务的功能主要是为了让用户看到好看的段子可以进行分享给别人，有助于扩大app的传播 -->
     <!-- 这个功能可以先不放出来，后面二期优化再追加这个功能 -->

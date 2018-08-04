@@ -51,10 +51,12 @@ App({
                   success(res) {
                     var resp = res.data
                     console.log("resp:" + resp)
-                    console.log("[debug]firstLogin:" + resp.firstLogin + ", token:" + resp.token)
+                    console.log("[debug]firstLogin:" + resp.firstLogin + ", token:" + resp.token + ", userid:" + resp.userid)
                     //这里是不是应该用那个setStorage啥的？
                     self.globalData.token = resp.token;
                     self.globalData.userid = resp.userid;
+
+                    
                     //version1: 仅仅对于第一次使用本程序的用户才请求用户画像
                     //基于firstLogin判断是否跳转login授权页面，进行授权获取用户getUserInfo()
                     // if(res.firstLogin){
