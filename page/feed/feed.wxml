@@ -1,5 +1,5 @@
 <view class="container">
-	<view class="header {{scrollDown?'scrolled':''}}">
+	<view class="header">
 		<!-- <view class="location ellipsis" bindtap="toNearby">
 			<image class="icon" src="/imgs/index/icon_location.png"/>
 			{{address}}
@@ -63,14 +63,14 @@
 					</view>	
 
           <view class="userui" style="margin-top:5rpx;margin-bottom:15rpx;width:100%">
-                  <view class="manage__tag">
+                  <view class="manage__tag {{item.follow?'active':''}}">
                     <!-- 为这个icon设置点击事件 -->
-                    <icon class="fa fa-thumbs-o-up" style="font-size:50rpx" bindtap="followNews" data-userid="2" data-newsid="6"/>
-                    <text class="counter">76</text>
+                    <icon class="fa fa-thumbs-o-up" style="font-size:50rpx" bindtap="followNews" data-newsid="{{item.docid}}"/>
+                    <text class="counter">{{item.follows}}</text>
                   </view>
-                  <view class="manage__tag_mid">
-                    <icon class="fa fa-thumbs-o-down" style="font-size:50rpx"/>
-                    <text class="counter">8</text>
+                  <view class="manage__tag_mid {{item.unfollow?'active':''}}">
+                    <icon class="fa fa-thumbs-o-down" style="font-size:50rpx" bindtap="unFollowNews" data-newsid="{{item.docid}}"/>
+                    <text class="counter">{{item.unfollows}}</text>
                   </view>
                   <!-- 后面开发完评论功能再放出来
                   点击评论按钮或者正文（图片或者文字正文）进入信息流详情页，详情页底部展示评论内容 -->

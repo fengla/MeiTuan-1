@@ -197,15 +197,6 @@ Page({
   },
   // 获取数据  pageIndex：页码参数
   getData: function () {
-    // var reqUrlHotApps = app.globalData.root + "/getLatestApps"
-    // wx.request({
-    //   url: reqUrlHotApps, success(res) {
-    //     console.log("[debug]hotApps:" + res.data)
-    //     self.setData({
-    //       apps: res.data
-    //     })
-    //   }
-    // });
 
     var self = this;
     var pageIndex = self.data.currentPage;

@@ -2,58 +2,35 @@ var app = getApp();
 var server = require('../../utils/server');
 Page({
 	data: {
-    ctName : "",
+    //ctName : "",
     root: app.globalData.root,
-    apps : []
+    apps : [],
+    refreshTime: '', // 刷新的时间 
+    allPages: '',    // 总页数
+    currentPage: 0,  // 当前页数（从0开始index）
+    currentCT: 0,//当前ct
+    currentCTName: "",//当前ct
+    loadMoreData: '加载更多……',
+    empty: "" 
 	},
 	onLoad: function (options) {
-    console.log("[debug]-ctpage-options:" + options.ctName)
+    console.log("[debug]-myctpage-options:" + options.ctName)
+    
+    var userid = wx.getStorageSync('userid');
     var ctIdPara = options.ctId
     var ctNamePara = options.ctName
 
-    console.log("[debug]-ctpage-ctId:"+ctIdPara);
-    console.log("[debug]-ctpage-ctName:" + ctNamePara);
+    console.log("[debug]-myctpage-ctId:"+ctIdPara);
+    console.log("[debug]-myctpage-ctName:" + ctNamePara);
 
 		var self = this;
 
     self.setData({
-      ctName: ctNamePara
+      currentCT: ctIdPara,
+      currentCTName: ctNamePara
     })
-		// wx.getLocation({
-		// 	type: 'gcj02',
-		// 	success: function (res) {
-		// 		var latitude = res.latitude;
-		// 		var longitude = res.longitude;
-		// 		server.getJSON('dwq/WxAppApi/location.php', {
-		// 			latitude: latitude,
-		// 			longitude: longitude
-		// 		}, function (res) {
-		// 			console.log(res)
-		// 			if (res.data.status != -1) {
-		// 				self.setData({
-		// 					address: res.data.result.address_component.street_number
-		// 				});
-		// 			} else {
-		// 				self.setData({
-		// 					address: '定位失败'
-		// 				});
-		// 			}
-		// 		});
-		// 	}
-		// });
-    var reqUrl = app.globalData.root + "/getAppsByCT?ct=" + ctIdPara + "&&curPage=0"
-    wx.request({
-      url: reqUrl, success(res) {
-        console.log("debug-before:" + res.data.content)
-        self.setData({
-          apps: res.data.content
-        })
-        console.log("self.apps:" + self.apps)
-        console.log("self.data.apps:" + self.data.apps)
-      }
-    });
-    //request是异步的，所以下面这一行日志不是在上面这些请求赋值打日志之后的行为
-    console.log("debug-apps:" + this.data.apps)
+		
+    this.getData()
 	},
 
   onReady() {
@@ -121,6 +98,99 @@ Page({
     wx.navigateTo({//保留当前页面，跳转到应用内的某个页面
       url: '/page/shop/shop?id=1',//url里面就写上你要跳到的地址
     })
-	}
+	},
+
+
+
+
+
+
+
+  //start
+  /** 上下拉 */
+  loadMore: function () {
+    var self = this;
+    // 当前页是最后一页
+    if (self.data.currentPage == self.data.allPages) {
+      self.setData({
+        loadMoreData: '已经到顶'
+      })
+      return;
+    }
+    setTimeout(function () {
+      console.log('上拉加载更多');
+      var tempCurrentPage = self.data.currentPage;
+      tempCurrentPage = tempCurrentPage + 1;
+      self.setData({
+        currentPage: tempCurrentPage,
+        hideBottom: false
+      })
+      self.getData();
+    }, 300);
+  },
+  // 下拉刷新
+  refresh: function (e) {
+    var self = this;
+    setTimeout(function () {
+      console.log('下拉刷新');
+      var date = new Date();
+      self.setData({
+        currentPage: 0,
+        refreshTime: date.toLocaleTimeString(),
+        hideHeader: false
+      })
+      self.getData();
+    }, 300);
+  },
+
+  // 获取数据  pageIndex：页码参数
+  getData: function () {
+    var self = this;
+
+    var userid = wx.getStorageSync('userid')
+    ///var ctIdpara = self.data.currentCT;
+    //console.log("[debug]ctIdPara:" + ctIdpara)
+    var pageIndex = self.data.currentPage;
+    var reqUrl = app.globalData.root + "/findFollowedAppsByCT"
+    wx.request({
+      url: reqUrl,
+      data: {
+        ctid: self.data.currentCT,
+        userid: userid,
+        curPage: pageIndex
+      },
+      success: function (res) {
+        var dataModel = res.data;
+
+        if (pageIndex == 0) { // 下拉刷新
+          console.log("debug-before:" + res.data.content) //delete later
+          self.setData({
+            allPages: dataModel.totalPages,
+            apps: res.data.content,
+            hideHeader: true
+          })
+          console.log("self.apps:" + self.apps)
+          console.log("self.data.apps:" + self.data.apps)
+        } else { // 加载更多
+          console.log('加载更多');
+          var tempArray = self.data.apps;
+          tempArray = tempArray.concat(dataModel.content);
+          self.setData({
+            allPages: dataModel.totalPages,
+            apps: tempArray,
+
+          })
+        }
+      },
+      fail: function () {
+
+      }
+    })
+  },
+  //end
+
+
+
+  
 });
 

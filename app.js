@@ -3,13 +3,16 @@ App({
 	onLaunch: function () {
 		console.log('App Launch')
 		var self = this;
-		var token = wx.getStorageSync('token');
+		var token = wx.getStorageSync('token');//这样子直接校验token会有问题，永远不会重新登录
     console.log("app.js.onLaunch.token:"+token)
     //getStorageSync: 从本地缓存中获取指定key的内容，后续把一些需要一直维护的内容都写在这里或者golballobalData(视情况而定)
 		if (!token) {//xcx中是这样判空的？
 			self.login();
 		} else {
-			wx.checkSession({//验证session_key是否有效
+      //当需要用户重新登录的时候可以操作一下这个。 important
+      //wx.clearStorageSync('token')
+			
+      wx.checkSession({//验证session_key是否有效
 				success: function () {
 					// 登录态未过期
 					console.log('登录态未过期')
@@ -33,7 +36,7 @@ App({
 	globalData: {
 		cartList: [],
 		userInfo: [],
-    root: "http://localhost:8080",//"http://40e5c53b.ngrok.io",//
+    root: "http://154.8.140.202:8080",//"http://localhost:8080",//"http://154.8.140.202:8080",//"http://bb4423cb.ngrok.io",
     wxapps: [],
     token: null,
     userid: null
@@ -53,10 +56,13 @@ App({
                     console.log("resp:" + resp)
                     console.log("[debug]firstLogin:" + resp.firstLogin + ", token:" + resp.token + ", userid:" + resp.userid)
                     //这里是不是应该用那个setStorage啥的？
-                    self.globalData.token = resp.token;
-                    self.globalData.userid = resp.userid;
-
+                    // self.globalData.token = resp.token;
+                    // self.globalData.userid = resp.userid;
                     
+                    
+
+                    wx.setStorageSync('token', resp.token)
+                    wx.setStorageSync('userid', resp.userid)
                     //version1: 仅仅对于第一次使用本程序的用户才请求用户画像
                     //基于firstLogin判断是否跳转login授权页面，进行授权获取用户getUserInfo()
                     // if(res.firstLogin){
@@ -116,11 +122,13 @@ App({
 
         //todo:这里以post方式把以上数据传给服务端
           var reqUrl = self.globalData.root + "/updateUserInfo4wx"
+          var userid = wx.getStorageSync('userid')
+          console.log("yomi-test:" + userid)
           wx.request({//这是get请求还是post请求呢？
               url: reqUrl,
               method: 'POST',
               data: {
-                userid: self.globalData.userid,
+                userid: userid,
                 nickName: nickName,
                 avatar: avatar,
                 gender: gender,

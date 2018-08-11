@@ -3,58 +3,17 @@ var server = require('../../utils/server');
 Page({
 	data: {
 		filterId: 1,
-		address: '广州天河大厦',
-    banners: [],
     icons: [],
-		shops: app.globalData.shops,
     root: app.globalData.root,
-    wxapps: app.globalData.wxapps,
-    apps:[]
+    apps:[],
+    refreshTime: '', // 刷新的时间 
+    allPages: '',    // 总页数
+    currentPage: 0,  // 当前页数（从0开始index）
+    loadMoreData: '加载更多……',
+    empty: "" 
 	},
 	onLoad: function () {
 		var self = this;
-		// wx.getLocation({
-		// 	type: 'gcj02',
-		// 	success: function (res) {
-		// 		var latitude = res.latitude;
-		// 		var longitude = res.longitude;
-		// 		server.getJSON('dwq/WxAppApi/location.php', {
-		// 			latitude: latitude,
-		// 			longitude: longitude
-		// 		}, function (res) {
-		// 			console.log(res)
-		// 			if (res.data.status != -1) {
-		// 				self.setData({
-		// 					address: res.data.result.address_component.street_number
-		// 				});
-		// 			} else {
-		// 				self.setData({
-		// 					address: '定位失败'
-		// 				});
-		// 			}
-		// 		});
-		// 	}
-		// });
-    var reqUrlHotApps = app.globalData.root + "/showHotApps"
-    wx.request({
-      url: reqUrlHotApps, success(res) {
-        console.log("[debug]hotApps:" + res.data)
-        self.setData({
-          apps: res.data
-        })
-      }
-    });
-
-    //banners 重新请求出来???看看是否可以得到？？？这样可以吗？？？
-    var reqUrlBanners = app.globalData.root + "/getBanners"
-    wx.request({
-      url: reqUrlBanners, success(res) {
-        console.log("[debug]banners:" + res.data)
-        self.setData({
-          banners: res.data
-        })
-      }
-    });
 
     //icons
     var reqUrlCts = app.globalData.root + "/getAllCts"
@@ -65,7 +24,9 @@ Page({
           icons: res.data
         })
       }
-    });
+    })
+
+    this.getData()
 	},
 
   onReady() {
@@ -90,43 +51,15 @@ Page({
 		wx.navigateTo({url: 'search'});
 	},
 	toMyCt: function (e) {
-		//todo:这里可以从缓存中读取uid，然后请求这个用户在这个分类（参数中获取）下的关注app数据
-    var uid = 123123123;
-
-    console.log("[debug]ctId")
-    console.log(e.currentTarget.dataset)
     var ctId = e.currentTarget.id
     var ctName = e.currentTarget.dataset.ctname
-    console.log("ctId:"+ctId)
-    console.log("ctName:"+ctName)
+    console.log("ctId:" + ctId + ", ctName:" + ctName)
     
     wx.navigateTo({//保留当前页面，跳转到应用内的某个页面
       url: '/page/myctpage/myctpage?ctId=' + ctId +'&&ctName=' + ctName,//url里面就写上你要跳到的地址   todo:这个ctName参数应该是不需要的，可以考虑删除
     })
 	},
-	tapFilter: function (e) {
-		switch (e.target.dataset.id) {
-			case '1':
-				this.data.shops.sort(function (a, b) {
-					return a.id > b.id;
-				});
-				break;
-			case '2':
-				this.data.shops.sort(function (a, b) {
-					return a.sales < b.sales;
-				});
-				break;
-			case '3':
-				this.data.shops.sort(function (a, b) {
-					return a.distance > b.distance;
-				});
-				break;
-		}
-		this.setData({
-			filterId: e.target.dataset.id,
-			shops: this.data.shops
-		});
-	},
+
 	tapBanner: function (e) {
 		// var name = this.data.banners[e.target.dataset.id].name;
 		// wx.showModal({
@@ -143,6 +76,99 @@ Page({
     wx.navigateTo({//保留当前页面，跳转到应用内的某个页面
       url: '/page/shop/shop?id=' + bannerId,//url里面就写上你要跳到的地址
     })
-	}
+	},
+
+
+
+
+
+
+
+  //start
+  /** 上下拉 */
+  loadMore: function () {
+    var self = this;
+    // 当前页是最后一页
+    if (self.data.currentPage == self.data.allPages) {
+      self.setData({
+        loadMoreData: '已经到顶'
+      })
+      return;
+    }
+    setTimeout(function () {
+      console.log('上拉加载更多');
+      var tempCurrentPage = self.data.currentPage;
+      tempCurrentPage = tempCurrentPage + 1;
+      self.setData({
+        currentPage: tempCurrentPage,
+        hideBottom: false
+      })
+      self.getData();
+    }, 300);
+  },
+  // 下拉刷新
+  refresh: function (e) {
+    var self = this;
+    setTimeout(function () {
+      console.log('下拉刷新');
+      var date = new Date();
+      self.setData({
+        currentPage: 0,
+        refreshTime: date.toLocaleTimeString(),
+        hideHeader: false
+      })
+      self.getData();
+    }, 300);
+  },
+
+  // 获取数据  pageIndex：页码参数
+  getData: function () {
+    var self = this;
+
+    var userid = wx.getStorageSync('userid')
+    ///var ctIdpara = self.data.currentCT;
+    //console.log("[debug]ctIdPara:" + ctIdpara)
+    var pageIndex = self.data.currentPage;
+    var reqUrl = app.globalData.root + "/findFollowedApps"
+    wx.request({
+      url: reqUrl,
+      data: {
+        userid: userid,
+        curPage: pageIndex
+      },
+      success: function (res) {
+        var dataModel = res.data;
+
+        if (pageIndex == 0) { // 下拉刷新
+          console.log("debug-before:" + res.data.content) //delete later
+          self.setData({
+            allPages: dataModel.totalPages,
+            apps: res.data.content,
+            hideHeader: true
+          })
+          console.log("self.apps:" + self.apps)
+          console.log("self.data.apps:" + self.data.apps)
+        } else { // 加载更多
+          console.log('加载更多');
+          var tempArray = self.data.apps;
+          tempArray = tempArray.concat(dataModel.content);
+          self.setData({
+            allPages: dataModel.totalPages,
+            apps: tempArray,
+
+          })
+        }
+      },
+      fail: function () {
+
+      }
+    })
+  },
+  //end
+
+
+
+
+
 });
 

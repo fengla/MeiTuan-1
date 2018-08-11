@@ -1,0 +1,12 @@
+<view class="container">
+
+  <view class="section">
+    <form bindsubmit="putFeedback">
+      <button bindtap="toDevShare"> 我是开发者 </button>
+      <button bindtap="toUserShare"> 我是普通用户 </button>
+    </form>
+  </view>
+				
+		
+
+</view>

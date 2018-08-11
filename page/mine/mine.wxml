@@ -10,7 +10,7 @@
 		<!-- 点击进入myapp页面
     技术点：调转 -->
     <!-- 关注的app后面可以追加显示数量 -->
-    <view class="line judgement" bindtap="toMyApp" data-userid="2">关注的app (62)</view>
+    <view class="line judgement" bindtap="toMyApp">关注的app ({{followCount}})</view>
 
     <!-- 点击进入我收藏的信息流？这个业务的功能主要是为了让用户看到好看的段子可以进行分享给别人，有助于扩大app的传播 -->
     <!-- 这个功能可以先不放出来，后面二期优化再追加这个功能 -->
@@ -18,13 +18,16 @@
 
     <!-- 点击这个进入app提交的页面（需要解决的问题：xcx的表单处理，app截图，icon,qrcode的上传怎么办？） -->
     <!-- 顶部横排2列开发者，普通用户；并在下方提示开发者渠道提交的app能够更快更新到平台，且有利于排名； -->
-    <view class="line judgement">分享新的app</view>
+    <view class="line judgement" bindtap="toShareSwitch">分享新的app</view>
+
+    <!-- 帮助与反馈的回复结果可以在这里进行展示 -->
+    <view class="line judgement">我的消息</view>
 	</view>
 	<!-- <view class="section">
 		<view class="line judgement">我的钱包<text class="tl">余额：￥0</text></view>
 	</view> -->
 	<view class="section">
     <!-- 这个只要做一个简单的文本框就可以了，也就是供用户提交一个反馈意见的渠道 -->
-		<view class="line judgement">帮助与反馈</view>
+		<view class="line judgement" bindtap="toFeedback">帮助与反馈</view>
 	</view>
 </view>

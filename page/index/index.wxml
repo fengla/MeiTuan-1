@@ -1,5 +1,5 @@
 <view class="container">
-	<view class="header {{scrollDown?'scrolled':''}}">
+	<view class="header">
 		<!-- <view class="location ellipsis" bindtap="toNearby">
 			<image class="icon" src="/imgs/index/icon_location.png"/>
 			{{address}}

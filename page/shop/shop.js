@@ -7,26 +7,6 @@ Page({
     flag : true,
     root : app.globalData.root,
     detail:"-----多快好省，只为品质生活-----\n1. 新人大礼：新人专享188元大礼包 \n2. 专享特权：每日多款商品享受手机专享价 \n3. 正品行货：100％正品行货、全国联保 \n4. 闪电到货：211限时达、次日达、极速达、夜间配",
-    banners: [
-      {
-        id: 3,
-        img: 'http://si1.go2yd.com/get-image/0OBbeGP0i24',
-        url: 'http://www.baidu.com',
-        name: '百亿巨惠任你抢'
-      },
-      {
-        id: 1,
-        img: 'http://si1.go2yd.com/get-image/0OBbg2XMEi0',
-        url: '/page/shop/shop?id=1',
-        name: '告别午高峰'
-      },
-      {
-        id: 2,
-        img: 'http://si1.go2yd.com/get-image/0OBbjI2U62y',
-        url: '/page/shop/shop?id=1',
-        name: '金牌好店'
-      }
-    ],
 		app : [] 
     //加载页面的时候搜索出来app的具体信息。。。（主页不应该搜索出整个AppDTO而是应该封装一个最少字段的对象返回出来，而且应该在sql阶段就缩小返回的数据，不查那么多数据出来）
 	},
@@ -35,13 +15,13 @@ Page({
     var self =this
     //debug.wdf
     console.log(appId)
-    console.log("banners:" + this.data.banners)
+    var userid = wx.getStorageSync('userid')
     //ajax this.setData
 		// this.setData({
 		// 	shopId: shopId,
 		// 	shop: shop
 		// })
-    var reqUrl = app.globalData.root + "/appDetail?appId=" + appId
+    var reqUrl = app.globalData.root + "/appDetail?appId=" + appId + "&&userid=" + userid
     console.log("reqUrl:" + reqUrl)
     wx.request({
       url: reqUrl, success(res) {
@@ -165,7 +145,32 @@ Page({
 			}
 		})
 	},
-	follow: function () {
+	follow: function (e) {
+    //请求服务端，关注app
+    var appid = e.target.dataset.appid;
+    console.log("[debug-follow-appid]:" + appid)
+    var userid = wx.getStorageSync('userid')
+    var reqUrl = app.globalData.root + "/followApp"
+    console.log("yomi-test:" + userid)
+    wx.request({//这是get请求还是post请求呢？
+      url: reqUrl,
+      method: 'GET',
+      data: {
+        userid: userid,
+        appid: appid,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log(res)
+
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    })
+
     //this.setData({ flag: false })
 		this.setData({
 			followed: !this.data.followed,
@@ -175,6 +180,14 @@ Page({
   //隐藏弹出的二维码
   hide: function () {
     this.setData({ flag: true })
+  },
+  previewQrCode: function (e) {
+    var qrcodeUrl = e.target.dataset.src
+    console.log("qrcodeUrl:" + qrcodeUrl)
+    wx.previewImage({
+      urls: qrcodeUrl.split(',')
+      // 需要预览的图片http链接  使用split把字符串转数组。不然会报错
+    })
   },
 	onGoodsScroll: function (e) {
 		if (e.detail.scrollTop > 10 && !this.data.scrollDown) {

@@ -1,0 +1,12 @@
+<view class="container">
+
+  <view class="section">
+    <form bindsubmit="putFeedback">
+      <textarea placeholder="此处输入你的反馈意见哟..." name="textarea"/>
+      <button form-type="submit"> 提交 </button>
+    </form>
+  </view>
+				
+		
+
+</view>

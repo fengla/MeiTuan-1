@@ -2,12 +2,13 @@
 
 <view class="container">
 <scroll-view scroll-y="true" bindscroll="onScroll">
-	<view class="header {{scrollDown?'hidden':''}}">
+	<!-- <view class="header {{scrollDown?'hidden':''}}"> -->
+  <view class="header">
 		<image class="logo" src="{{root + app.icon}}"/>
 		<view class="name ellipsis">{{app.appName}}</view>
 		<view class="welcome ellipsis">点击“关注”使用小程序</view>
     <!-- 这里点击关注后就算是加入了个人感兴趣的app了，点击之后应该弹窗出来二维码，用户可以识别二维码进行使用 -->
-		<view class="follow" bindtap="follow">{{followed?'已关注':'关注'}}</view>
+		<view class="follow" bindtap="follow" data-appid="{{app.appid}}">{{followed?'已关注':'关注'}}</view>
 		<view class="line"></view>
 	</view>
 
@@ -93,7 +94,7 @@
     <view class="modal-box" hidden="{{flag}}" bindtap="hide">
       <view class="modal-body">
         <!-- <view class="modal-content"> -->
-          <image src="{{root + app.qrCode}}" class="qrcode" style="width: 100%"></image>
+          <image src="{{root + app.qrCode}}" data-src="{{root + app.qrCode}}" bindtap="previewQrCode" class="qrcode" style="width: 100%"></image>
           <button class="knowBtn" bindtap="hide">隐藏小程序码</button>
         <!-- </view> -->
       </view>

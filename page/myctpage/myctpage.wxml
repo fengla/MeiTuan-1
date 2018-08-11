@@ -1,5 +1,5 @@
 <view class="container">
-	<view class="header {{scrollDown?'scrolled':''}}">
+	<view class="header">
 		<!-- <view class="location ellipsis" bindtap="toNearby">
 			<image class="icon" src="/imgs/index/icon_location.png"/>
 			{{address}}
@@ -11,7 +11,8 @@
 		</view> -->
 	</view>
 
-	<scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll">
+	<scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll"
+  bindscrolltoupper="refresh" bindscrolltolower="loadMore">
 		<!-- <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500">
 			<block wx:for="{{banners}}" wx:key="id">
 				<swiper-item>
@@ -31,7 +32,7 @@
 
 		<view id="nearby" class="section section-big nearby">
 			<!-- 这里填写具体当前分类的名称 -->
-      <view class="title">我关注的 - {{ctName}}</view>
+      <view class="title">我关注的 - {{currentCTName}}</view>
 			<view class="filters">
 				<!-- <view class="filter {{filterId==1?'active':''}}" data-id="1" bindtap="tapFilter">关注最多<text class="v">↓</text>
 				</view>

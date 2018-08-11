@@ -312,7 +312,3 @@ page{
 .counter{
   margin-left:25rpx;
 }
-
-.active {
-  color:#eb2700
-}

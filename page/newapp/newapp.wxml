@@ -1,0 +1,27 @@
+<view class="container">
+
+      <form bindsubmit="reg">
+
+    <view>用户：<input type="text" name="username" /></view>
+
+    <view>密码：<input password name="password" /></view>
+
+    <view>兴趣：<checkbox-group name="cb">
+        <label><checkbox value="A" />乒乓球</label>
+        <label><checkbox value="B" checked="false" />羽毛球</label>
+        <label><checkbox value="C" checked="{{checked}}" />排球</label>
+    </checkbox-group></view>
+
+    <view>级别：<radio-group name="r">
+        <label><radio value="a" />初级</label>
+        <label><radio value="b" />中级</label>
+        <label><radio value="c" />高级</label>
+    </radio-group></view>
+
+    <view><button type="primary" form-type="submit">反馈</button></view>
+
+</form>
+				
+		
+
+</view>

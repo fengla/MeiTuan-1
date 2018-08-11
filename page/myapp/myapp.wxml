@@ -3,7 +3,7 @@
 <view class="container">
 	
   
-  <view class="header {{scrollDown?'scrolled':''}}">
+  <view class="header">
 		<!-- <view class="location ellipsis" bindtap="toNearby">
 			<image class="icon" src="/imgs/index/icon_location.png"/>
 			{{address}}
@@ -17,7 +17,8 @@
   <!-- todo:上面这一段是不是也是可以删除的？  -->
 
   <!-- 如何将下面这个banner下沉。。留下完整的banner -->
-	<scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll">
+	<scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll"
+  bindscrolltoupper="refresh" bindscrolltolower="loadMore">
 
 		<swiper class="section icons" indicator-dots="true" autoplay="" interval="" duration="500">
     <!-- wx:for-item="list"怎么理解？ -->
@@ -41,7 +42,7 @@
 				</view> -->
 			</view>
 			<view class="shop" wx:for="{{apps}}" wx:key="id">
-				<navigator url="/page/shop/shop?id={{item.id}}" style="width: 100%; height: 100%">
+				<navigator url="/page/shop/shop?id={{item.appid}}" style="width: 100%; height: 100%">
 					<view class='shop-container'>	
 						<view class='shop-logo'><image src="{{root + item.icon}}" style="height: 100%;border-radius: 15px"/></view>
 						<view class='shop-detail'>

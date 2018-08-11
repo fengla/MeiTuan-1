@@ -7,8 +7,13 @@
 		"page/order/order",
     "page/ctpage/ctpage",
     "page/feed/feed",
+    "page/feedback/feedback",
+    "page/shareswitch/shareswitch",
+    "page/usershare/usershare",
+    "page/devshare/devshare",
     "page/myapp/myapp",
     "page/myctpage/myctpage"
+   
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#feb70f",

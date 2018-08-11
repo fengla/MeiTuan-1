@@ -133,15 +133,12 @@ Page({
   getData: function () {
 
     var self = this;
-    var userid = wx.getStorageSync('userid')
-
     var pageIndex = self.data.currentPage;
     var reqUrl = app.globalData.root + "/getNewsByPage" //js中单引号双引号扩起来的字符串是一样的吗？是js都认可这2种样式
     wx.request({
       url: reqUrl,
       data: {
-        curPage: pageIndex,
-        userid: userid
+        curPage: pageIndex
       },
       success: function (res) {
         var dataModel = res.data;
@@ -178,27 +175,6 @@ Page({
     var newsid = e.target.dataset.newsid
     console.log("followNews userid:" + userid + ", docid:" + newsid)
 
-
-    //start
-    var self = this
-    var feedsTmp = self.data.feeds
-    console.log("feedsTmp:" + feedsTmp)
-    
-    for (var i = 1; i < feedsTmp.length; i++) {
-      if (feedsTmp[i].docid==newsid){//字符串比较？
-        //feedsTmp[i].follow=true
-        var newCount = feedsTmp[i].follows + 1
-        //
-        this.setData({
-          ['feeds['+i+'].follow']: true,
-          ['feeds[' + i + '].follows']: newCount
-        });
-        //
-        break
-      }
-    }
-    //end
-
     //请求服务端
     var reqUrl = app.globalData.root + "/followNews?userid=" + userid +"&&newsid=" + newsid 
     wx.request({
@@ -218,25 +194,6 @@ Page({
     var userid = wx.getStorageSync('userid')
     var newsid = e.target.dataset.newsid
     console.log("followNews userid:" + userid + ", docid:" + newsid)
-
-    //start
-    var self = this
-    var feedsTmp = self.data.feeds
-    console.log("feedsTmp:" + feedsTmp)
-    for (var i = 1; i < feedsTmp.length; i++) {
-      if (feedsTmp[i].docid == newsid) {//字符串比较？
-        //feedsTmp[i].unfollow = true
-        var newCount = feedsTmp[i].unfollows + 1
-        //
-        this.setData({
-          ['feeds[' + i + '].unfollow']: true,
-          ['feeds[' + i + '].unfollows']: newCount
-        });
-        //
-        break
-      }
-    }
-    //end
 
     //请求服务端
     var reqUrl = app.globalData.root + "/unFollowNews?userid=" + userid + "&&newsid=" + newsid
