@@ -1,0 +1,27 @@
+<view class="container">
+	
+  <!-- 这个是新的head,后期都统一成这个 -->
+  <view class="header" style="background:{{themeColor}}; height:140rpx">
+    <view class="appname" style="padding-top:50rpx;padding-left:30rpx">
+      D1小程序助手
+    </view>
+  </view>
+  
+  <view class="header" style="background:{{themeColor}}">
+		<view class="search">
+			<image class="icon" src="/imgs/index/icon_search.png"/>
+			<input bindinput="inputSearch" placeholder="{{placeholder}}" auto-focus/>
+		</view>
+    <!-- 这个disabled可以限制对于没有输入搜索词的不进行搜索 -->
+    <!-- 对于搜索结果的view，其实也是可以通过类似的方式进行设置，没搜索之前不显示，搜索之后才显示这个view控件 -->
+		<button style="color:black" class="" size="mini" hover-class="hover" loading="" plain="" disabled="{{!searchWords.length}}"
+				bindtap="doSearch">搜索
+		</button>
+	</view>
+
+
+
+
+	
+
+</view>

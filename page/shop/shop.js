@@ -7,7 +7,8 @@ Page({
     flag : true,
     root : app.globalData.root,
     detail:"-----多快好省，只为品质生活-----\n1. 新人大礼：新人专享188元大礼包 \n2. 专享特权：每日多款商品享受手机专享价 \n3. 正品行货：100％正品行货、全国联保 \n4. 闪电到货：211限时达、次日达、极速达、夜间配",
-		app : [] 
+    themeColor: app.globalData.themeColor,
+    app : [] 
     //加载页面的时候搜索出来app的具体信息。。。（主页不应该搜索出整个AppDTO而是应该封装一个最少字段的对象返回出来，而且应该在sql阶段就缩小返回的数据，不查那么多数据出来）
 	},
 	onLoad: function (options) {
@@ -240,11 +241,5 @@ Page({
 			showCartDetail: false
 		});
 	},
-	submit: function (e) {
-		var total = this.data.cart.total
-		wx.navigateTo({
-		  url: '/page/order/order?pay=1&total=' + total
-		})
-	}
 });
 

@@ -1,15 +1,15 @@
 <view class="container">
-	<view class="header">
-		<!-- <view class="location ellipsis" bindtap="toNearby">
-			<image class="icon" src="/imgs/index/icon_location.png"/>
-			{{address}}
-		</view> -->
-		<!-- <view class="search" bindtap="tapSearch" style='display:none'>
-			<image class="icon" src="/imgs/index/icon_search.png"/>
-			<i class="fa fa-home"></i>
-			烤鸭
-		</view> -->
-	</view>
+
+  <!-- 这个是新的head,后期都统一成这个 -->
+  <view class="header" style="background:{{themeColor}}; height:140rpx">
+    <view style="padding-top:50rpx;padding-left:30rpx">
+      <block >
+             D1小程序助手    
+      </block>
+    </view>
+  </view>
+            
+	
 
   <!-- <view class="header" hidden="{{hideHeader}}">
     <view>下拉刷新中……</view>

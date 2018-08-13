@@ -2,7 +2,7 @@ var app = getApp();
 //var server = require('../../utils/server');
 Page({
 	data: {
-    
+    themeColor: app.globalData.themeColor
 	},
 	onLoad: function (options) {
 

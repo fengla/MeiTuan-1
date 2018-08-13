@@ -14,7 +14,8 @@ Page({
     allPages: '',    // 总页数
     currentPage: 0,  // 当前页数（从0开始index）
     loadMoreData: '加载更多……',
-    empty: "" 
+    empty: "",
+    themeColor: app.globalData.themeColor
 	},
 	onLoad: function () {
     console.log("index.userinfo:" + app.globalData.userInfo.nickName)
@@ -96,7 +97,7 @@ Page({
 		}
 	},
 	tapSearch: function () {
-		wx.navigateTo({url: 'search'});
+		wx.navigateTo({url: '/page/search/search'});
 	},
 	toCt: function (e) {
 		// var self = this;

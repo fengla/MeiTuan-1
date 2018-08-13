@@ -1,10 +1,10 @@
 {
 	"pages": [
+    
 		"page/index/index",
-		"page/index/search",
+		"page/search/search",
 		"page/shop/shop",
 		"page/mine/mine",
-		"page/order/order",
     "page/ctpage/ctpage",
     "page/feed/feed",
     "page/feedback/feedback",
@@ -20,7 +20,8 @@
 		"navigationBarTextStyle": "white",
 		"backgroundColor": "#efefef",
 		"backgroundTextStyle": "dark",
-		"navigationBarTitleText": "yomi小助手"
+		"navigationBarTitleText": "yomi小助手",
+    "navigationStyle":"custom"
 	},
 	"tabBar": {
 		"color": "#878787",

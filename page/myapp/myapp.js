@@ -10,7 +10,8 @@ Page({
     allPages: '',    // 总页数
     currentPage: 0,  // 当前页数（从0开始index）
     loadMoreData: '加载更多……',
-    empty: "" 
+    empty: "",
+    themeColor: app.globalData.themeColor
 	},
 	onLoad: function () {
 		var self = this;

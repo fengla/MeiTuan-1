@@ -1,15 +1,12 @@
 <view class="container">
-	<view class="header">
-		<!-- <view class="location ellipsis" bindtap="toNearby">
-			<image class="icon" src="/imgs/index/icon_location.png"/>
-			{{address}}
-		</view> -->
-		<!-- <view class="search" bindtap="tapSearch" style='display:none'>
-			<image class="icon" src="/imgs/index/icon_search.png"/>
-			<i class="fa fa-home"></i>
-			烤鸭
-		</view> -->
-	</view>
+	<!-- 这个是新的head,后期都统一成这个 -->
+  <view class="header" style="background:{{themeColor}}; height:140rpx">
+    <view style="padding-top:50rpx;padding-left:30rpx">
+      <block >
+             D1小程序助手  -  我关注的
+      </block>
+    </view>
+  </view>
 
 	<scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll"
   bindscrolltoupper="refresh" bindscrolltolower="loadMore">
@@ -32,7 +29,7 @@
 
 		<view id="nearby" class="section section-big nearby">
 			<!-- 这里填写具体当前分类的名称 -->
-      <view class="title">我关注的 - {{currentCTName}}</view>
+      <view class="title">{{currentCTName}}</view>
 			<view class="filters">
 				<!-- <view class="filter {{filterId==1?'active':''}}" data-id="1" bindtap="tapFilter">关注最多<text class="v">↓</text>
 				</view>

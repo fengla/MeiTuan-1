@@ -1,11 +1,17 @@
+
+
+// 此为备份文件，后面可以参考这里的getLocation代码
+
+
 var app = getApp();
 var server = require('../../utils/server');
 Page({
 	data: {
 		filterId: 1,
 		searchWords: '',
-		placeholder: '烤鸭',
-		shops: app.globalData.shops
+		placeholder: '热搜app',
+		shops: app.globalData.shops,
+    themeColor: app.globalData.themeColor 
 	},
 	onLoad: function () {
 		var self = this;

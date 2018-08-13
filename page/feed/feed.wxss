@@ -19,8 +19,9 @@ scroll-view {
 	height: 100%;
 }
 
+/*这里不能对header进行设置position:fixed*/
 .header {
-	position: fixed;
+	
 	display: -webkit-flex;
 	left: 0;
 	top: 0;
@@ -29,9 +30,6 @@ scroll-view {
 	box-sizing: border-box;
 	z-index: 1;
 	-webkit-transition: background 0.5s ease-in-out;
-}
-.header.scrolled {
-	background: #feb70f;
 }
 .header .icon {
 	width: 40rpx;

@@ -18,7 +18,6 @@ page {
 /*特殊按钮*/
 button.yellow {
 	color: #fff;
-	background: #feb70f;
 }
 button.yellow:after {
 	border-color: rgba(255, 133, 111, 0.3);

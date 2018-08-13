@@ -1,0 +1,37 @@
+.header {
+	flex-direction: row;
+  display:flex;
+	padding: 20rpx;
+}
+
+.appname {
+	font-size:0.75rem
+}
+
+.header .icon {
+	width: 40rpx;
+	height: 40rpx;
+	vertical-align: top;
+}
+
+.header .search {
+	-webkit-flex: 1;
+	color: #000;
+	font-size: 30rpx;
+	line-height: 40rpx;
+	padding: 10rpx;
+	border-radius: 10rpx;
+	background: #eee;
+}
+
+.header .search .icon {
+	float: left;
+	margin: 1rpx 5rpx 0 0;
+}
+
+.header button {
+  display:inline-flex;
+	margin-left: 20rpx;
+	font-size: 30rpx;
+}
+

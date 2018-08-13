@@ -11,7 +11,8 @@ Page({
     currentCT: 0,//当前ct
     currentCTName: "",//当前ct
     loadMoreData: '加载更多……',
-    empty: "" 
+    empty: "",
+    themeColor: app.globalData.themeColor 
 	},
 	onLoad: function (options) {
     console.log("[debug]-myctpage-options:" + options.ctName)

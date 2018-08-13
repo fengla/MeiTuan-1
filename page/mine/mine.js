@@ -2,7 +2,8 @@ var app = getApp();
 var server = require('../../utils/server');
 Page({
 	data: {
-    followCount: 0 //我关注的app数量
+    followCount: 0, //我关注的app数量
+    themeColor: app.globalData.themeColor 
   },
 	onLoad: function () {
     //请求服务端获取用户关注的app数量

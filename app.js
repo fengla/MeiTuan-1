@@ -39,7 +39,8 @@ App({
     root: "http://154.8.140.202:8080",//"http://localhost:8080",//"http://154.8.140.202:8080",//"http://bb4423cb.ngrok.io",
     wxapps: [],
     token: null,
-    userid: null
+    userid: null,
+    themeColor: "#feb70f"
 	},
 	token: null,
 	login: function() {

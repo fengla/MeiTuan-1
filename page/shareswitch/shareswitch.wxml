@@ -1,5 +1,14 @@
 <view class="container">
 
+  <!-- 这个是新的head,后期都统一成这个 -->
+  <view class="header" style="background:{{themeColor}}; height:140rpx">
+    <view style="padding-top:50rpx;padding-left:30rpx">
+      <block >
+             D1小程序助手    
+      </block>
+    </view>
+  </view>
+
   <view class="section">
     <form bindsubmit="putFeedback">
       <button bindtap="toDevShare"> 我是开发者 </button>

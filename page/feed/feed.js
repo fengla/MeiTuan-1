@@ -10,7 +10,8 @@ Page({
     allPages: '',    // 总页数
     currentPage: 0,  // 当前页数  默认是1
     loadMoreData: '加载更多……',
-    empty:"" 
+    empty:"",
+    themeColor: app.globalData.themeColor 
 	},
 	onLoad: function (options) {
     var self = this

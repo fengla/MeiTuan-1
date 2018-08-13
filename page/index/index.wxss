@@ -19,9 +19,6 @@ scroll-view {
 	z-index: 1;
 	-webkit-transition: background 0.5s ease-in-out;
 }
-.header.scrolled {
-	background: #feb70f;
-}
 .header .icon {
 	width: 40rpx;
 	height: 40rpx;

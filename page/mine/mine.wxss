@@ -1,6 +1,21 @@
 .header {
-	background: #feb70f;
 	padding: 30rpx;
+}
+
+.appname {
+	font-size:0.75rem
+}
+
+.appheader {
+
+	display: -webkit-flex;
+	left: 0;
+	top: 0;
+	width: 100%;
+	padding: 20rpx;
+	box-sizing: border-box;
+	z-index: 1;
+	-webkit-transition: background 0.5s ease-in-out;
 }
 .header .avatar {
 	display: block;

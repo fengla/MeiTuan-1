@@ -3,7 +3,7 @@
 <view class="container">
 <scroll-view scroll-y="true" bindscroll="onScroll">
 	<!-- <view class="header {{scrollDown?'hidden':''}}"> -->
-  <view class="header">
+  <view class="header" style="background:{{themeColor}}">
 		<image class="logo" src="{{root + app.icon}}"/>
 		<view class="name ellipsis">{{app.appName}}</view>
 		<view class="welcome ellipsis">点击“关注”使用小程序</view>

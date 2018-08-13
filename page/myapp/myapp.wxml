@@ -3,18 +3,15 @@
 <view class="container">
 	
   
-  <view class="header">
-		<!-- <view class="location ellipsis" bindtap="toNearby">
-			<image class="icon" src="/imgs/index/icon_location.png"/>
-			{{address}}
-		</view> -->
-		<view class="search" bindtap="tapSearch" style='display:none'>
-			<image class="icon" src="/imgs/index/icon_search.png"/>
-			<i class="fa fa-home"></i>
-			键入小程序名称
-		</view>
-	</view>
-  <!-- todo:上面这一段是不是也是可以删除的？  -->
+  <!-- 这个是新的head,后期都统一成这个 -->
+  <view class="header" style="background:{{themeColor}}; height:140rpx">
+    <view style="padding-top:50rpx;padding-left:30rpx">
+      <block >
+             D1小程序助手    
+      </block>
+    </view>
+  </view>
+
 
   <!-- 如何将下面这个banner下沉。。留下完整的banner -->
 	<scroll-view scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll"
@@ -24,7 +21,7 @@
     <!-- wx:for-item="list"怎么理解？ -->
 			<swiper-item wx:for="{{icons}}" wx:for-item="list" wx:key="id">
 				<view class="icon" wx:for="{{list}}" wx:for-item="icon" wx:key="id" bindtap="toMyCt" id="{{icon.id}}" data-ctName="{{icon.name}}">
-        <icon class="{{icon.css}}" style="color:#feb70f;font-size:40rpx"/>
+        <icon class="{{icon.css}}" style="color:{{themeColor}};font-size:40rpx"/>
 					<!-- <image src="{{icon.img}}" id="{{icon.id}}"/> -->
 					<text>{{icon.name}}</text>
 				</view>

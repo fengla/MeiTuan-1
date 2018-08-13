@@ -20,7 +20,7 @@ scroll-view {
 }
 
 .header {
-	position: fixed;
+	/* 这里原本有个fixed,现在不能有这个，有这个就会布局有问题 */
 	display: -webkit-flex;
 	left: 0;
 	top: 0;
@@ -30,9 +30,7 @@ scroll-view {
 	z-index: 1;
 	-webkit-transition: background 0.5s ease-in-out;
 }
-.header.scrolled {
-	background: #feb70f;
-}
+
 .header .icon {
 	width: 40rpx;
 	height: 40rpx;

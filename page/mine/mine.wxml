@@ -1,5 +1,13 @@
 <view class="container">
-	<view class="header">
+
+  <!-- 怎么修改这一页name的字体大小？？？ -->
+  <view class="appheader" style="background:{{themeColor}}; height:140rpx">
+    <view class="appname" style="padding-top:50rpx;padding-left:30rpx">
+      D1小程序助手    
+    </view>
+  </view>
+
+	<view class="header" style="background:{{themeColor}}">
 		<image class="avatar" src="{{userInfo.avatarUrl}}" />
 		<view class="nickname">{{userInfo.nickName}}</view>
 	</view>
